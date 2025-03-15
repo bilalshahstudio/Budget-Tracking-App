@@ -1,7 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/userModel");
+const {
+  loginController,
+  registerController,
+} = require("../controllers/userController");
 const router = express.Router();
+
+//Routers
+//POST || Login User
+
+router.post("/login", loginController);
+
+//POST || Register User
+router.post("/register", registerController);
 
 //Create Data
 router.post("/", async (req, res) => {
