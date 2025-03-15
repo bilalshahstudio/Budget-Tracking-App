@@ -1,7 +1,7 @@
 import React from "react";
 
-function Expense() {
+const Expense = () => {
   return <div>Expense</div>;
-}
+};
 
 export default Expense;
