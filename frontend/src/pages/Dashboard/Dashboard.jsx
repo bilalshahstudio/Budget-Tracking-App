@@ -22,37 +22,27 @@ const Dashboard = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {/* Header */}
-      <Header
-        style={{ color: "white", fontSize: "20px", backgroundColor: "white" }}
-        th
-      >
-        <Typography.Title>Dashboard</Typography.Title>
-      </Header>
 
-      <Layout>
-        {/* Sidebar */}
-        <Sider width={200} theme="dark">
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            style={{ height: "100%", borderRight: 0 }}
-          >
-            {menuItems.map((item) => (
-              <Menu.Item key={item.key} icon={item.icon}>
-                <Link to={item.path}>{item.label}</Link>
-              </Menu.Item>
-            ))}
-          </Menu>
-        </Sider>
+      {/* Sidebar */}
+      <Sider width={200} theme="dark">
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          style={{ height: "100%", borderRight: 0 }}
+        >
+          {menuItems.map((item) => (
+            <Menu.Item key={item.key} icon={item.icon}>
+              <Link to={item.path}>{item.label}</Link>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Sider>
 
-        {/* Main Content */}
-        <Layout style={{ padding: "20px" }}>
-          <Content
-            style={{ background: "#fff", padding: "20px", minHeight: 280 }}
-          >
-            <Outlet />
-          </Content>
-        </Layout>
+      {/* Main Content */}
+      <Layout style={{ padding: "20px" }}>
+        <Content
+          style={{ background: "#fff", padding: "20px", minHeight: 280 }}
+        ></Content>
       </Layout>
     </Layout>
   );
