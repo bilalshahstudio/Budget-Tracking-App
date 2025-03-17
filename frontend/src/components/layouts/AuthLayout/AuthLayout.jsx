@@ -3,6 +3,7 @@ import { Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
 import Login from "../../../pages/Auth/Login";
 import Dashboard from "../../../pages/Dashboard/Dashboard";
+import MainLayout from "../MainLayout";
 
 function Auth() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -11,7 +12,7 @@ function Auth() {
       <Header>Header</Header>
       <Content>
         {isLoggedIn ? (
-          <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <MainLayout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         ) : (
           <Login />
         )}

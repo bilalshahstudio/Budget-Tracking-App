@@ -11,6 +11,7 @@ import Auth from "./components/layouts/AuthLayout/AuthLayout";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddBudget from "./pages/AddBudget/AddBudget";
 import Home from "./pages/Home/Home";
+import MainLayout from "./components/layouts/MainLayout";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/auth" exact element={<Auth />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/signUp" exact element={<Signup />} />
+        <Route path="/mainLayout" exact element={<MainLayout />} />
         <Route path="/dashboard" exact element={<Dashboard />} />
         <Route path="/home" exact element={<Home />} />
         <Route path="/addBudget" exact element={<AddBudget />} />
@@ -36,5 +38,9 @@ const Root = () => {
   const isAuthenticated = true;
 
   //Redirected to dashboard if authenticated, otherwise to login
-  return isAuthenticated ? <Navigate to="dashboard" /> : <Navigate to="auth" />;
+  return isAuthenticated ? (
+    <Navigate to="mainLayout" />
+  ) : (
+    <Navigate to="auth" />
+  );
 };
