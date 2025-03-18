@@ -1,17 +1,17 @@
-import { Dropdown, Layout, Menu, Space, Typography } from "antd";
-import {
-  DollarCircleOutlined,
-  DownOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
-import { Content, Header } from "antd/es/layout/layout";
+import { Layout, Menu } from "antd";
+import { DollarCircleOutlined, PieChartOutlined } from "@ant-design/icons";
+import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-// import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   const menuItems = [
-    { key: "1", label: "Home", path: "/home", icon: <PieChartOutlined /> },
+    {
+      key: "1",
+      label: "Home",
+      path: "/",
+      icon: <PieChartOutlined />,
+    },
     {
       key: "2",
       label: "Add Budget",
@@ -42,7 +42,9 @@ const Dashboard = () => {
       <Layout style={{ padding: "20px" }}>
         <Content
           style={{ background: "#fff", padding: "20px", minHeight: 280 }}
-        ></Content>
+        >
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );
