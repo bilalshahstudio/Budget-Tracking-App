@@ -24,7 +24,7 @@ const Dashboard = () => {
       {/* Header */}
 
       {/* Sidebar */}
-      <Sider width={200} theme="dark">
+      <Sider width={200} theme="dark" style={{ marginTop: "20px" }}>
         <Menu
           mode="inline"
           defaultSelectedKeys={["1"]}

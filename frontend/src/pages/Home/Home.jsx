@@ -1,9 +1,40 @@
-import { Button, DatePicker, Flex, Input, Space, Table } from "antd";
-import React from "react";
-import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
+import {
+  Button as AntBtn,
+  DatePicker,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Space,
+  Table,
+} from "antd";
+import React, { useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import Button from "../../components/ButtonStyles/Button";
+import { InputStyled } from "../../components/InputStyles/input.styles";
+import { DatePickerStyled } from "../../components/DatePickerStyles/datePicker.Styles";
 
 function Home() {
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = () => {
+    setOpen(false);
+    // setModalText("The modal will be closed after two seconds");
+    // setConfirmLoading(true);
+    // setTimeout(() => {
+    //   setConfirmLoading(false);
+    // }, 2000);
+  };
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
   const dataSource = [
     {
       key: "1",
@@ -42,12 +73,12 @@ function Home() {
       key: "x",
       render: () => (
         <>
-          <Button type="link" icon={<EditFilled />}>
+          <AntBtn type="link" icon={<EditFilled />}>
             Edit
-          </Button>
-          <Button type="link" icon={<DeleteFilled />}>
+          </AntBtn>
+          <AntBtn type="link" icon={<DeleteFilled />}>
             Delete
-          </Button>
+          </AntBtn>
         </>
       ),
     },
@@ -61,7 +92,7 @@ function Home() {
       <Flex justify="space-between" className="header-items-container">
         <Space>
           <DatePicker style={{ padding: "13px", borderRadius: 0 }} />{" "}
-          <ButtonStyled>Filter Records</ButtonStyled>
+          <Button>Filter Records</Button>
         </Space>
         <Button
           style={{
@@ -70,9 +101,55 @@ function Home() {
             color: "#fff",
             backgroundColor: "#000",
           }}
+          onClick={showModal}
         >
           Add Budget
         </Button>
+        <Modal
+          title="Add Budget"
+          open={open}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+          footer={[]}
+          style={{ justifyItems: "flex-start" }}
+        >
+          <Form
+            labelCol={{
+              span: 4,
+            }}
+            wrapperCol={{
+              span: 14,
+            }}
+            layout="horizontal"
+            style={{
+              maxWidth: 600,
+              justifyItems: "center",
+            }}
+          >
+            <Form.Item name="name" label="Name">
+              <InputStyled />
+            </Form.Item>
+            <Form.Item name="price" label="Price">
+              <InputStyled />
+            </Form.Item>
+            <Form.Item label="Date">
+              <DatePickerStyled />
+            </Form.Item>
+            <Form.Item>
+              <AntBtn
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  borderRadius: 0,
+                }}
+                type="primary"
+              >
+                Submit
+              </AntBtn>
+            </Form.Item>
+          </Form>
+        </Modal>
       </Flex>
       <Table
         style={{ marginTop: "8px" }}

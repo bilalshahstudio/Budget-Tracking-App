@@ -1,5 +1,5 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Flex, Space, Typography } from "antd";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Flex, Space, Typography } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
 
@@ -20,7 +20,7 @@ function AppHeader() {
     },
   ];
   return (
-    <Header>
+    <Header style={{ alignContent: "center" }}>
       <Flex justify="space-between" align="center">
         <Typography.Text style={{ color: "#fff" }}>
           Budget Tracking App
@@ -30,12 +30,18 @@ function AppHeader() {
             items,
           }}
         >
-          <a onClick={(e) => e.preventDefault()}>
+          {/* <a onClick={(e) => e.preventDefault()}>
             <Space>
               Hover me
               <DownOutlined />
             </Space>
-          </a>
+          </a> */}
+          <Avatar
+            style={{
+              backgroundColor: "#87d068",
+            }}
+            icon={<UserOutlined />}
+          />
         </Dropdown>
       </Flex>
     </Header>

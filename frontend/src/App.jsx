@@ -13,6 +13,7 @@ function App() {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
+        {/* Common Header */}
         <AppHeader />
         <Routes>
           <Route path="/" element={<Login />} />
