@@ -40,7 +40,8 @@ function AppHeader() {
             style={{
               backgroundColor: "#87d068",
             }}
-            icon={<UserOutlined />}
+            // icon={<UserOutlined />}
+            src="https://api.dicebear.com/7.x/miniavs/svg?seed=2"
           />
         </Dropdown>
       </Flex>

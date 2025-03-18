@@ -3,8 +3,6 @@ import {
   DatePicker,
   Flex,
   Form,
-  Input,
-  InputNumber,
   Modal,
   Space,
   Table,
@@ -52,9 +50,9 @@ function Home() {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Expense",
+      dataIndex: "expense",
+      key: "expense",
     },
     {
       title: "Price",
