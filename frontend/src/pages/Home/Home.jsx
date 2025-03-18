@@ -14,8 +14,13 @@ import { InputStyled } from "../../components/InputStyles/input.styles";
 import { DatePickerStyled } from "../../components/DatePickerStyles/datePicker.Styles";
 
 function Home() {
+  const [expense, setExpense] = useState("");
+  const [price, setPrice] = useState("");
+  const [expenseDate, setExpenseDate] = useState("");
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  console.log(expense, price, expenseDate);
 
   const showModal = () => {
     setOpen(true);
@@ -28,6 +33,28 @@ function Home() {
     //   setConfirmLoading(false);
     // }, 2000);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const addUserData = { expense, price, expenseDate };
+
+    const response = await fetch("http://localhost:5000/", {
+      method: "POST",
+      body: JSON.stringify(addUserData),
+      headers: {
+        "Content-Type": "appication/json",
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.log(result.error);
+    }
+    if (response.ok) {
+      console.log(result);
+    }
+  };
   const handleCancel = () => {
     console.log("Clicked cancel button");
     setOpen(false);
@@ -36,15 +63,10 @@ function Home() {
   const dataSource = [
     {
       key: "1",
-      name: "Mike",
+      userID: "1",
+      expense: "expense",
       price: 32,
-      date: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      price: 42,
-      date: "10 Downing Street",
+      expenseDate: "18-3-2025",
     },
   ];
 
@@ -61,9 +83,9 @@ function Home() {
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
-      filters: [{ date: "", value: "date" }],
+      dataIndex: "expenseDate",
+      key: "expenseDate",
+      filters: [{ date: "", value: "expenseDate" }],
     },
     {
       title: "Action",
@@ -71,10 +93,18 @@ function Home() {
       key: "x",
       render: () => (
         <>
-          <AntBtn type="link" icon={<EditFilled />}>
+          <AntBtn
+            onClick={() => console.log("clicked edit button")}
+            type="link"
+            icon={<EditFilled />}
+          >
             Edit
           </AntBtn>
-          <AntBtn type="link" icon={<DeleteFilled />}>
+          <AntBtn
+            onClick={() => console.log("clicked delete button")}
+            type="link"
+            icon={<DeleteFilled />}
+          >
             Delete
           </AntBtn>
         </>
@@ -87,10 +117,16 @@ function Home() {
       vertical
       style={{ marginInline: "10%", marginTop: "14px" }}
     >
-      <Flex justify="space-between" className="header-items-container">
+      <Flex
+        justify="space-between"
+        className="header-items-container"
+        onSubmit={handleSubmit}
+      >
         <Space>
           <DatePicker style={{ padding: "13px", borderRadius: 0 }} />{" "}
-          <Button>Filter Records</Button>
+          <Button onClick={() => console.log("clicked filter record button")}>
+            Filter Records
+          </Button>
         </Space>
         <Button
           style={{
@@ -107,7 +143,7 @@ function Home() {
           title="Add Budget"
           open={open}
           onOk={handleOk}
-          confirmLoading={confirmLoading}
+          // confirmLoading={confirmLoading}
           onCancel={handleCancel}
           footer={[]}
           style={{ justifyItems: "flex-start" }}
@@ -125,14 +161,29 @@ function Home() {
               justifyItems: "center",
             }}
           >
-            <Form.Item name="name" label="Name">
-              <InputStyled />
+            <Form.Item name="expense" label="Expense">
+              <InputStyled
+                value={expense}
+                onChange={(e) => setExpense(e.target.value)}
+              />
             </Form.Item>
             <Form.Item name="price" label="Price">
-              <InputStyled />
+              <InputStyled
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </Form.Item>
+            {/* <Form.Item label="Date">
+              <DatePickerStyled
+                value={expenseDate}
+                onChange={(e) => setExpenseDate(e.target.value)}
+              />
+            </Form.Item> */}
             <Form.Item label="Date">
-              <DatePickerStyled />
+              <InputStyled
+                value={expenseDate}
+                onChange={(e) => setExpenseDate(e.target.value)}
+              />
             </Form.Item>
             <Form.Item>
               <AntBtn
