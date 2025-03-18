@@ -1,4 +1,4 @@
-import { Button, DatePicker, Flex, Input, Table } from "antd";
+import { Button, DatePicker, Flex, Input, Space, Table } from "antd";
 import React from "react";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
@@ -34,6 +34,7 @@ function Home() {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      filters: [{ date: "", value: "date" }],
     },
     {
       title: "Action",
@@ -55,13 +56,13 @@ function Home() {
     <Flex
       justify="center"
       vertical
-      style={{ paddingInline: "15%", marginTop: "14px" }}
+      style={{ marginInline: "10%", marginTop: "14px" }}
     >
-      <Flex className="header-items-container">
-        <Flex>
-          <DatePicker style={{ padding: "13px" }} />{" "}
+      <Flex justify="space-between" className="header-items-container">
+        <Space>
+          <DatePicker style={{ padding: "13px", borderRadius: 0 }} />{" "}
           <ButtonStyled>Filter Records</ButtonStyled>
-        </Flex>
+        </Space>
         <Button
           style={{
             borderRadius: 0,
@@ -73,7 +74,13 @@ function Home() {
           Add Budget
         </Button>
       </Flex>
-      <Table dataSource={dataSource} columns={columns} size="small" />;
+      <Table
+        style={{ marginTop: "8px" }}
+        dataSource={dataSource}
+        columns={columns}
+        size="small"
+      />
+      ;
     </Flex>
   );
 }
