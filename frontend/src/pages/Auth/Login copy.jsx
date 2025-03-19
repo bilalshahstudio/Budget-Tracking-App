@@ -1,21 +1,7 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import {
-  Button,
-  Checkbox,
-  Flex,
-  Form,
-  Input,
-  Layout,
-  Space,
-  Typography,
-} from "antd";
-import { InputStyled } from "../../components/InputStyles/input.styles";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
-import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
+import { Link, Navigate } from "react-router-dom";
+import { Button, Checkbox, Flex, Form, Input, Typography } from "antd";
 
 function Login() {
-  const navigate = useNavigate();
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -27,30 +13,27 @@ function Login() {
     // },
   };
   return (
-    <Layout style={{ alignItems: "center" }}>
-      <Flex
-        className="content-container"
-        align="center"
-        style={{
-          marginBlock: "50px",
-          backgroundColor: "#fff",
-          padding: "60px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 10px 4px",
-        }}
-      >
+    <Flex justify="space-around" align="center">
+      <Flex vertical>
+        <Typography.Text>Budget Tracking App</Typography.Text>
+        <Flex vertical>
+          <Typography.Text>Welcome Back</Typography.Text>
+          <Typography.Text>Please enter your details to login</Typography.Text>
+        </Flex>
         <Form
           // name="basic"
           name="login"
           labelCol={{
-            span: 28,
+            span: 8,
           }}
           wrapperCol={{
-            span: 25,
+            span: 16,
           }}
-          style={{
-            maxWidth: 600,
-          }}
+          style={
+            {
+              // maxWidth: 600,
+            }
+          }
           initialValues={{
             remember: true,
             email: "admin@gmail.com",
@@ -61,9 +44,6 @@ function Login() {
           autoComplete="off"
           validateMessages={validateMessages}
         >
-          <Form.Item>
-            <Typography.Title>Welcome Back!</Typography.Title>
-          </Form.Item>
           <Form.Item
             name={["user", "email"]}
             label="Email"
@@ -74,7 +54,7 @@ function Login() {
               },
             ]}
           >
-            <InputStyled placeholder="john@example.com" />
+            <Input placeholder="john@example.com" />
           </Form.Item>
 
           <Form.Item
@@ -87,7 +67,7 @@ function Login() {
               },
             ]}
           >
-            <PasswordStyled placeholder="Min 8 characters" />
+            <Input.Password placeholder="Min 8 characters" />
           </Form.Item>
 
           <Form.Item>
@@ -100,19 +80,22 @@ function Login() {
           </Form.Item>
 
           <Form.Item>
-            <ButtonStyled
+            <Button
               block
               type="primary"
               htmlType="submit"
-              onClick={() => navigate("/")}
+              onClick={<Navigate to="dashboard" />}
             >
               Log in
-            </ButtonStyled>
+            </Button>
             Don't have an account? <Link to="/signup">SignUp</Link>
           </Form.Item>
         </Form>
       </Flex>
-    </Layout>
+      <Flex>
+        <h1>Image to Display</h1>
+      </Flex>
+    </Flex>
   );
 }
 

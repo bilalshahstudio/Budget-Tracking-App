@@ -150,24 +150,25 @@ function Home() {
         >
           <Form
             labelCol={{
-              span: 4,
+              span: 25,
             }}
             wrapperCol={{
-              span: 14,
+              span: 25,
             }}
-            layout="horizontal"
+            layout="vertical"
             style={{
-              maxWidth: 600,
+              // maxWidth: 600,
+              // width: "600px",
               justifyItems: "center",
             }}
           >
-            <Form.Item name="expense" label="Expense">
+            <Form.Item style={{ width: "100%" }} name="expense" label="Expense">
               <InputStyled
                 value={expense}
                 onChange={(e) => setExpense(e.target.value)}
               />
             </Form.Item>
-            <Form.Item name="price" label="Price">
+            <Form.Item style={{ width: "100%" }} name="price" label="Price">
               <InputStyled
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -201,12 +202,15 @@ function Home() {
         </Modal>
       </Flex>
       <Table
-        style={{ marginTop: "8px" }}
+        style={{
+          marginTop: "8px",
+          border: "1px solid",
+          borderColor: "#cac2c2",
+        }}
         dataSource={dataSource}
         columns={columns}
         size="small"
       />
-      ;
     </Flex>
   );
 }

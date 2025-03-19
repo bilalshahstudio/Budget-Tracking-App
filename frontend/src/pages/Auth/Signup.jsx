@@ -16,7 +16,7 @@ import { InputStyled } from "../../components/InputStyles/input.styles";
 import Password from "antd/es/input/Password";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
-import loginImg from "../../assets/3.jpg";
+import signupImage from "../../assets/3.jpg";
 
 const Signup = () => {
   const validateMessages = {
@@ -30,45 +30,38 @@ const Signup = () => {
     // },
   };
   return (
-    <Layout>
-      <Header style={{ backgroundColor: "#fff", borderBottomColor: "#928b8b" }}>
-        <Typography.Title>Budget Tracking App</Typography.Title>
-      </Header>
-      <Content
+    <Layout style={{ alignItems: "center", backgroundColor: "#dbdbdb" }}>
+      <Flex
+        className="signup-container"
         style={{
-          justifyItems: "center",
+          marginBlock: "50px",
+          backgroundColor: "#fff",
+          padding: "18px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 10px 4px",
           alignItems: "center",
-          backgroundColor: "#E2E8F0",
         }}
       >
         <Flex
-          align="center"
-          gap={20}
+          className="side-image-container"
           style={{
-            backgroundColor: "#fff",
-            marginInline: "15%",
-            padding: 12,
-            marginTop: "14px",
-            borderRadius: "12px",
+            // paddingInline: "24px",
+            // backgroundColor: "yellow",
+            backgroundImage: `url(${signupImage})`,
+            backgroundSize: "cover",
+            borderRadius: "8px",
+            margin: "14px",
+            width: "210px",
+            height: "400px",
+            justifyContent: "center",
+            padding: "18px",
           }}
         >
-          <Flex
-            style={{
-              backgroundColor: "yellow",
-              width: "100%",
-              height: "51vh",
-              borderRadius: "12px",
-              alignItems: "center",
-              paddingInline: "18px",
-            }}
-          >
-            <Typography.Text strong>Start your journey with us</Typography.Text>
-            {/* <img
-              style={{ width: "100", borderRadius: "16px", objectFit: "cover" }}
-              src={loginImg}
-              alt="signin"
-            /> */}
-          </Flex>
+          <Typography.Title level={3} style={{ color: "#fff", margin: "1px" }}>
+            Start your Journey With Us
+          </Typography.Title>
+        </Flex>
+        <Flex>
           <Form
             // name="basic"
             name="signup"
@@ -79,18 +72,19 @@ const Signup = () => {
             wrapperCol={{
               span: 25,
             }}
-            style={
-              {
-                // flex: 1,
-              }
-            }
+            style={{
+              paddingInline: "14px",
+              // flex: 1,
+            }}
             // onFinish={handleSubmit}
             // onFinishFailed={onFinishFailed}
             autoComplete="off"
             validateMessages={validateMessages}
           >
             <Form.Item>
-              Already have an account? <Link to="/login">Login</Link>
+              <Typography.Text strong>
+                Already have an account? <Link to="/login">Login</Link>
+              </Typography.Text>
             </Form.Item>
             <Form.Item
               name="fName"
@@ -163,7 +157,7 @@ const Signup = () => {
             </Form.Item>
           </Form>
         </Flex>
-      </Content>
+      </Flex>
     </Layout>
   );
 };

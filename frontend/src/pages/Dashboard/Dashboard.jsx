@@ -14,8 +14,8 @@ const Dashboard = () => {
     },
     {
       key: "2",
-      label: "Add Budget",
-      path: "/addBudget",
+      label: "Analytics",
+      path: "/analytics",
       icon: <DollarCircleOutlined />,
     },
   ];

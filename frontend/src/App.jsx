@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import AddBudget from "./pages/AddBudget/AddBudget";
 import Home from "./pages/Home/Home";
 import Auth from "./components/Auth/Auth";
 import { Layout } from "antd";
 import AppHeader from "./components/AppHeader/AppHeader";
+import Analytics from "./pages/Analytics/Analytics";
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
             }
           >
             <Route index element={<Home />} />
-            <Route path="/addBudget" element={<AddBudget />} />
+            <Route path="/analytics" element={<Analytics />} />
           </Route>
         </Routes>
       </Layout>
