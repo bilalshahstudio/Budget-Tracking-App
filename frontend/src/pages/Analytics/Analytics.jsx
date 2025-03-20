@@ -2,8 +2,10 @@ import { Form, Layout, Button as AntBtn, Flex, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
 import { InputStyled } from "../../components/InputStyles/input.styles";
+import { useData } from "../../context/DataContext";
 
 function Analytics() {
+  const { data, loading } = useData();
   const [expense, setExpense] = useState("");
   const [price, setPrice] = useState("");
   const [expenseDate, setExpenseDate] = useState("");

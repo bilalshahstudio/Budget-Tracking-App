@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fName": "Bilal",
+      "lName": "Shah",
+      "email": "bilal@gmail.com",
+      "password": "admin",
+      "budget": 1000,
+      "expense": "Computer",
+      "price": 500,
+      "expenseDate": "20-03-2025"
+    },
+    {
+      "id": 2,
+      "fName": "Talha",
+      "lName": "Shah",
+      "email": "talha@gmail.com",
+      "password": "admin",
+      "budget": 800,
+      "expense": "Laptop",
+      "price": 300,
+      "expenseDate": "18-03-2025"
+    }
+  ]
+}

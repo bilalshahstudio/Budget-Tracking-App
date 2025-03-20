@@ -1,24 +1,13 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import {
-  Button,
-  Checkbox,
-  Divider,
-  Flex,
-  Form,
-  Input,
-  Layout,
-  Typography,
-  Upload,
-} from "antd";
-import { Content, Header } from "antd/es/layout/layout";
+import { Flex, Form, Layout, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import Password from "antd/es/input/Password";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import signupImage from "../../assets/3.jpg";
 
 const Signup = () => {
+  const { signup } = userData();
   const validateMessages = {
     required: "${label} is required!",
     types: {

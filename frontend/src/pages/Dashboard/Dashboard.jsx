@@ -3,6 +3,7 @@ import { DollarCircleOutlined, PieChartOutlined } from "@ant-design/icons";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { Link, Outlet } from "react-router-dom";
+import { DataProvider } from "../../context/DataContext";
 
 const Dashboard = () => {
   const menuItems = [
@@ -20,33 +21,35 @@ const Dashboard = () => {
     },
   ];
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      {/* Header */}
+    <DataProvider>
+      <Layout style={{ minHeight: "100vh" }}>
+        {/* Header */}
 
-      {/* Sidebar */}
-      <Sider width={200} theme="dark" style={{ marginTop: "20px" }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          style={{ height: "100%", borderRight: 0 }}
-        >
-          {menuItems.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon}>
-              <Link to={item.path}>{item.label}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Sider>
+        {/* Sidebar */}
+        <Sider width={200} theme="dark" style={{ marginTop: "20px" }}>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            style={{ height: "100%", borderRight: 0 }}
+          >
+            {menuItems.map((item) => (
+              <Menu.Item key={item.key} icon={item.icon}>
+                <Link to={item.path}>{item.label}</Link>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Sider>
 
-      {/* Main Content */}
-      <Layout style={{ padding: "20px" }}>
-        <Content
-          style={{ background: "#fff", padding: "20px", minHeight: 280 }}
-        >
-          <Outlet />
-        </Content>
+        {/* Main Content */}
+        <Layout style={{ padding: "20px" }}>
+          <Content
+            style={{ background: "#fff", padding: "20px", minHeight: 280 }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </DataProvider>
   );
 };
 

@@ -11,17 +11,16 @@ import React, { useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import Button from "../../components/ButtonStyles/Button";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import { DatePickerStyled } from "../../components/DatePickerStyles/datePicker.Styles";
+import { useData } from "../../context/DataContext";
 
 function Home() {
-  const [expense, setExpense] = useState("");
-  const [price, setPrice] = useState("");
-  const [expenseDate, setExpenseDate] = useState("");
+  const { data, loading } = useData();
   const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  // const [confirmLoading, setConfirmLoading] = useState(false);
 
-  console.log(expense, price, expenseDate);
+  console.log(data);
 
+  if (loading) return <p>loading</p>;
   const showModal = () => {
     setOpen(true);
   };
@@ -60,19 +59,9 @@ function Home() {
     setOpen(false);
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      userID: "1",
-      expense: "expense",
-      price: 32,
-      expenseDate: "18-3-2025",
-    },
-  ];
-
   const columns = [
     {
-      title: "Expense",
+      title: "Expense Type",
       dataIndex: "expense",
       key: "expense",
     },
@@ -142,13 +131,14 @@ function Home() {
         <Modal
           title="Add Budget"
           open={open}
-          onOk={handleOk}
+          // onOk={handleOk}
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
           footer={[]}
           style={{ justifyItems: "flex-start" }}
         >
           <Form
+            onFinish={handleSubmit}
             labelCol={{
               span: 25,
             }}
@@ -164,13 +154,13 @@ function Home() {
           >
             <Form.Item style={{ width: "100%" }} name="expense" label="Expense">
               <InputStyled
-                value={expense}
+                value={data?.expense}
                 onChange={(e) => setExpense(e.target.value)}
               />
             </Form.Item>
             <Form.Item style={{ width: "100%" }} name="price" label="Price">
               <InputStyled
-                value={price}
+                value={data?.price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Item>
@@ -182,7 +172,7 @@ function Home() {
             </Form.Item> */}
             <Form.Item label="Date">
               <InputStyled
-                value={expenseDate}
+                value={data?.expenseDate}
                 onChange={(e) => setExpenseDate(e.target.value)}
               />
             </Form.Item>
@@ -194,6 +184,7 @@ function Home() {
                   borderRadius: 0,
                 }}
                 type="primary"
+                htmlType="submit"
               >
                 Submit
               </AntBtn>
@@ -207,7 +198,7 @@ function Home() {
           border: "1px solid",
           borderColor: "#cac2c2",
         }}
-        dataSource={dataSource}
+        dataSource={data}
         columns={columns}
         size="small"
       />
