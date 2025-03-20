@@ -9,7 +9,6 @@ function Analytics() {
   const [expense, setExpense] = useState("");
   const [price, setPrice] = useState("");
   const [expenseDate, setExpenseDate] = useState("");
-  const [user, setUser] = useState("");
   return (
     <Layout>
       <Content style={{ justifyItems: "center", marginTop: "80px" }}>
