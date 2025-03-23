@@ -104,7 +104,10 @@ function Home() {
     <Flex
       justify="center"
       vertical
-      style={{ marginInline: "10%", marginTop: "14px" }}
+      style={{
+        // marginInline: "10%",
+        marginTop: "14px",
+      }}
     >
       <Flex
         justify="space-between"
@@ -112,14 +115,13 @@ function Home() {
         onSubmit={handleSubmit}
       >
         <Space>
-          <DatePicker style={{ padding: "13px", borderRadius: 0 }} />{" "}
+          <DatePicker style={{ padding: "13px" }} />{" "}
           <Button onClick={() => console.log("clicked filter record button")}>
             Filter Records
           </Button>
         </Space>
         <Button
           style={{
-            borderRadius: 0,
             padding: "24px",
             color: "#fff",
             backgroundColor: "#000",
@@ -195,8 +197,8 @@ function Home() {
       <Table
         style={{
           marginTop: "8px",
-          border: "1px solid",
-          borderColor: "#cac2c2",
+          // border: "1px solid",
+          // borderColor: "#cac2c2",
         }}
         dataSource={data}
         columns={columns}

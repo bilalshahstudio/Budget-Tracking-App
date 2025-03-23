@@ -7,7 +7,7 @@ import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import signupImage from "../../assets/3.jpg";
 
 const Signup = () => {
-  const { signup } = userData();
+  // const { signup } = userData();
   const validateMessages = {
     required: "${label} is required!",
     types: {
