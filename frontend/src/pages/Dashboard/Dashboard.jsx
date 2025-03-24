@@ -22,21 +22,18 @@ const Dashboard = () => {
   ];
   return (
     <DataProvider>
-      <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E8F0" }}>
-        {/* Header */}
-
-        {/* Sidebar */}
+      <Layout style={{ minHeight: "100vh" }}>
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
           width={200}
-          theme="dark"
-          style={{ marginTop: "20px" }}
+          theme="light"
+          style={{ paddingTop: 20 }}
         >
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
-            style={{ height: "100%", borderRight: 0 }}
+            style={{ borderRight: 0 }}
           >
             {menuItems.map((item) => (
               <Menu.Item key={item.key} icon={item.icon}>
@@ -47,10 +44,8 @@ const Dashboard = () => {
         </Sider>
 
         {/* Main Content */}
-        <Layout style={{ padding: "20px" }}>
-          <Content
-            style={{ background: "#fff", padding: "20px", minHeight: 280 }}
-          >
+        <Layout>
+          <Content style={{ background: "#fff", padding: 20, minHeight: 280 }}>
             <Outlet />
           </Content>
         </Layout>

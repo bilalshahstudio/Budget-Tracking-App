@@ -29,6 +29,7 @@ function AppHeader() {
         borderBottom: "1px solid rgb(193, 197, 200)",
         marginBottom: "20px",
         backgroundColor: "#fff",
+        boxShadow: "0px 0px 5px 0px",
       }}
     >
       <Space align="center" wrap>

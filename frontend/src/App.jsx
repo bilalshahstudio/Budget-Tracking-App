@@ -12,7 +12,7 @@ import Analytics from "./pages/Analytics/Analytics";
 function App() {
   return (
     <Router>
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
         {/* Common Header */}
         <AppHeader />
         <Routes>
