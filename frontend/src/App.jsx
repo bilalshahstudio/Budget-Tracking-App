@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Dashboard from "./pages/Dashboard/Dashboard";
 // import Home from "./pages/Home/Home";
 // import Auth from "./components/Auth/Auth";
-import { Layout } from "antd";
+import { Flex, Layout, Spin } from "antd";
 // import AppHeader from "./components/AppHeader/AppHeader";
 // import Analytics from "./pages/Analytics/Analytics";
 
@@ -20,7 +20,13 @@ const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 function App() {
   return (
     <Router>
-      <Suspense>
+      <Suspense
+        fallback={
+          <Flex justify="center" align="center" style={{ height: "100vh" }}>
+            <Spin size="large" />
+          </Flex>
+        }
+      >
         <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
           {/* Common Header */}
           <AppHeader />

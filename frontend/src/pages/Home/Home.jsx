@@ -24,7 +24,7 @@ function Home() {
   const [selectedItem, setSelectedItem] = useState({});
   // const [confirmLoading, setConfirmLoading] = useState(false);
 
-  if (loading) return <Spin spinning={loading} />;
+  // if (loading) return <Spin spinning={loading} />;
   const showModal = () => {
     setOpen(true);
     setSelectedItem(null);
