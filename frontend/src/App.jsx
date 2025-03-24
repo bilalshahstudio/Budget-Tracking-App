@@ -1,41 +1,51 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Home from "./pages/Home/Home";
-import Auth from "./components/Auth/Auth";
+// import Login from "./pages/Auth/Login";
+// import Signup from "./pages/Auth/Signup";
+// import Dashboard from "./pages/Dashboard/Dashboard";
+// import Home from "./pages/Home/Home";
+// import Auth from "./components/Auth/Auth";
 import { Layout } from "antd";
-import AppHeader from "./components/AppHeader/AppHeader";
-import Analytics from "./pages/Analytics/Analytics";
+// import AppHeader from "./components/AppHeader/AppHeader";
+// import Analytics from "./pages/Analytics/Analytics";
+
+const Auth = lazy(() => import("./components/Auth/Auth"));
+const Login = lazy(() => import("./pages/Auth/Login"));
+const Signup = lazy(() => import("./pages/Auth/Signup"));
+const AppHeader = lazy(() => import("./components/AppHeader/AppHeader"));
+const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const Home = lazy(() => import("./pages/Home/Home"));
+const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 
 function App() {
   return (
     <Router>
-      <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
-        {/* Common Header */}
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<Login />} />
+      <Suspense>
+        <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
+          {/* Common Header */}
+          <AppHeader />
+          <Routes>
+            <Route path="/" element={<Login />} />
 
-          {/* Authentication Pages */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" exact element={<Signup />} />
-          {/* Protected Routes */}
-          <Route
-            // path="/dashboard"
-            exact
-            element={
-              <Auth>
-                <Dashboard />
-              </Auth>
-            }
-          >
-            <Route index element={<Home />} />
-            <Route path="/analytics" element={<Analytics />} />
-          </Route>
-        </Routes>
-      </Layout>
+            {/* Authentication Pages */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" exact element={<Signup />} />
+            {/* Protected Routes */}
+            <Route
+              // path="/dashboard"
+              exact
+              element={
+                <Auth>
+                  <Dashboard />
+                </Auth>
+              }
+            >
+              <Route index element={<Home />} />
+              <Route path="/analytics" element={<Analytics />} />
+            </Route>
+          </Routes>
+        </Layout>
+      </Suspense>
     </Router>
   );
 }
