@@ -26,7 +26,13 @@ const Dashboard = () => {
         {/* Header */}
 
         {/* Sidebar */}
-        <Sider width={200} theme="dark" style={{ marginTop: "20px" }}>
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          width={200}
+          theme="dark"
+          style={{ marginTop: "20px" }}
+        >
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}

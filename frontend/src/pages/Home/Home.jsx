@@ -1,28 +1,33 @@
 import {
   Button as AntBtn,
+  Col,
   DatePicker,
   Flex,
   Form,
   Modal,
+  Row,
   Space,
+  Spin,
   Table,
+  Typography,
 } from "antd";
 import React, { useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { useData } from "../../context/DataContext";
 import Button from "../../components/ButtonStyles/Button";
+import AddModal from "./AddModal";
 
 function Home() {
   const { data, loading } = useData();
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
   // const [confirmLoading, setConfirmLoading] = useState(false);
 
-  console.log(data);
-
-  if (loading) return <p>loading</p>;
+  if (loading) return <Spin spinning={loading} />;
   const showModal = () => {
     setOpen(true);
+    setSelectedItem(null);
   };
   const handleOk = () => {
     setOpen(false);
@@ -61,29 +66,36 @@ function Home() {
 
   const columns = [
     {
-      title: "Expense Type",
+      title: <Typography.Text strong>Expense Type</Typography.Text>,
       dataIndex: "expense",
       key: "expense",
+      // align: "center",
     },
     {
-      title: "Price",
+      title: <Typography.Text strong>Price</Typography.Text>,
       dataIndex: "price",
       key: "price",
+      align: "center",
     },
     {
-      title: "Date",
+      title: <Typography.Text strong>Date</Typography.Text>,
       dataIndex: "expenseDate",
       key: "expenseDate",
       filters: [{ date: "", value: "expenseDate" }],
+      align: "center",
     },
     {
-      title: "Action",
+      title: <Typography.Text strong>Action</Typography.Text>,
       dataIndex: "",
       key: "x",
-      render: () => (
+      align: "center",
+      render: (_, record) => (
         <>
           <AntBtn
-            onClick={() => console.log("clicked edit button")}
+            onClick={() => {
+              setOpen(true);
+              setSelectedItem(record);
+            }}
             type="link"
             icon={<EditFilled />}
           >
@@ -102,19 +114,22 @@ function Home() {
   ];
   return (
     <Flex
-      justify="center"
+      // justify="center"
       vertical
-      style={{
-        // marginInline: "10%",
-        marginTop: "14px",
-      }}
+      style={
+        {
+          // marginInline: "10%",
+          // marginTop: "14px",
+        }
+      }
     >
       <Flex
         justify="space-between"
         className="header-items-container"
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
+        wrap
       >
-        <Space>
+        <Space wrap>
           <DatePicker style={{ padding: "13px" }} />{" "}
           <Button onClick={() => console.log("clicked filter record button")}>
             Filter Records
@@ -130,23 +145,20 @@ function Home() {
         >
           Add Budget
         </Button>
-        <Modal
+        <AddModal data={selectedItem} open={open} setOpen={setOpen} />
+        {/* <Modal
           title="Add Budget"
           open={open}
+          centered
           // onOk={handleOk}
           // confirmLoading={confirmLoading}
           onCancel={handleCancel}
-          footer={[]}
-          style={{ justifyItems: "flex-start" }}
+          footer={null}
         >
           <Form
             onFinish={handleSubmit}
-            labelCol={{
-              span: 25,
-            }}
-            wrapperCol={{
-              span: 25,
-            }}
+            // labelCol={{ xs: { span: 24 }, sm: { span: 8 } }}
+            // wrapperCol={{ xs: { span: 24 }, sm: { span: 16 } }}
             layout="vertical"
             style={{
               // maxWidth: 600,
@@ -154,14 +166,26 @@ function Home() {
               justifyItems: "center",
             }}
           >
-            <Form.Item style={{ width: "100%" }} name="expense" label="Expense">
+            {/* <Row gutter={[16, 16]}>
+              <Col xs={24} sm={12} md={8} lg={6}>
+            <Form.Item
+              style={{ width: "100%" }}
+              name="expense"
+              // label="Expense"
+            >
               <InputStyled
+                placeholder="Expense Type"
                 value={data?.expense}
                 onChange={(e) => setExpense(e.target.value)}
               />
             </Form.Item>
-            <Form.Item style={{ width: "100%" }} name="price" label="Price">
+            <Form.Item
+              style={{ width: "100%" }}
+              name="price"
+              //  label="Price"
+            >
               <InputStyled
+                placeholder="Price"
                 value={data?.price}
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -171,11 +195,19 @@ function Home() {
                 value={expenseDate}
                 onChange={(e) => setExpenseDate(e.target.value)}
               />
-            </Form.Item> */}
-            <Form.Item label="Date">
-              <InputStyled
+            </Form.Item>
+            <Form.Item
+              //  label="Date"
+              style={{ width: "100%" }}
+            >
+              {/* <InputStyled
+                placeholder="Date"
                 value={data?.expenseDate}
                 onChange={(e) => setExpenseDate(e.target.value)}
+              />
+              <DatePicker
+                defaultValue={new Date(data?.expenseDate)}
+                // onChange={(e) => setExpenseDate(e.target.value)}
               />
             </Form.Item>
             <Form.Item>
@@ -191,8 +223,10 @@ function Home() {
                 Submit
               </AntBtn>
             </Form.Item>
+            {/* </Col>
+            </Row>
           </Form>
-        </Modal>
+        </Modal> */}
       </Flex>
       <Table
         style={{
