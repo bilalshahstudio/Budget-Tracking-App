@@ -22,7 +22,7 @@ const Dashboard = () => {
   ];
   return (
     <DataProvider>
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E8F0" }}>
         {/* Header */}
 
         {/* Sidebar */}

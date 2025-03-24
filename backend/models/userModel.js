@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
-    id: {
+    userID: {
       type: String,
       unique: true,
     },
@@ -22,13 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    budget: {
-      type: Number,
-    },
-    expense: {
-      type: String,
-    },
-    expenseDate: {
+    date: {
       type: String,
     },
   },

@@ -1,9 +1,8 @@
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, Dropdown, Flex, Space, Typography } from "antd";
-import { Header } from "antd/es/layout/layout";
-import budgetLogo from "../../assets/logo3.png";
+import { Avatar, Dropdown, Flex, Space, Typography } from "antd";
+import budgetLogo from "../../assets/pie.png";
 import React from "react";
 import { Link } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 
 function AppHeader() {
   const items = [
@@ -18,43 +17,43 @@ function AppHeader() {
     {
       key: "2",
       label: <Link to="/login">Logout</Link>,
-      //   extra: "⌘P",
     },
   ];
   return (
-    <Header style={{ alignContent: "center" }}>
-      <Flex justify="space-between" align="center">
-        <Flex align="center">
-          <img
-            src={budgetLogo}
-            alt="Company Logo"
-            style={{ height: "40px", marginRight: "10px" }}
-          />
-          <Typography.Text style={{ color: "#fff", fontSize: "24px" }}>
-            Budget Tracking App
-          </Typography.Text>
-        </Flex>
+    <Flex
+      justify="space-between"
+      align="center"
+      wrap
+      style={{
+        padding: "16px",
+        border: "1px solid rgb(193, 197, 200)",
+        marginBottom: "20px",
+      }}
+    >
+      <Space align="center" wrap>
+        <img
+          src={budgetLogo}
+          alt="Company Logo"
+          style={{ height: "40px", marginRight: "10px" }}
+        />
+        <Typography.Title level={3}>Budget Tracking App</Typography.Title>
+      </Space>
+      <Flex>
         <Dropdown
           menu={{
             items,
           }}
         >
-          {/* <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              Hover me
-              <DownOutlined />
-            </Space>
-          </a> */}
           <Avatar
+            size={"large"}
             style={{
-              backgroundColor: "#87d068",
+              backgroundColor: "#FDC414",
             }}
-            // icon={<UserOutlined />}
-            src="https://api.dicebear.com/7.x/miniavs/svg?seed=2"
+            icon={<UserOutlined />}
           />
         </Dropdown>
       </Flex>
-    </Header>
+    </Flex>
   );
 }
 

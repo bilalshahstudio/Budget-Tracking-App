@@ -9,9 +9,9 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import Button from "../../components/ButtonStyles/Button";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { useData } from "../../context/DataContext";
+import Button from "../../components/ButtonStyles/Button";
 
 function Home() {
   const { data, loading } = useData();
@@ -122,7 +122,7 @@ function Home() {
         </Space>
         <Button
           style={{
-            padding: "24px",
+            // padding: "24px",
             color: "#fff",
             backgroundColor: "#000",
           }}
