@@ -26,8 +26,9 @@ function AppHeader() {
       wrap
       style={{
         padding: "16px",
-        border: "1px solid rgb(193, 197, 200)",
+        borderBottom: "1px solid rgb(193, 197, 200)",
         marginBottom: "20px",
+        backgroundColor: "#fff",
       }}
     >
       <Space align="center" wrap>
