@@ -38,7 +38,7 @@ function AppHeader() {
           alt="Company Logo"
           style={{ height: "40px", marginRight: "10px" }}
         />
-        <Typography.Title level={3}>Budget Tracking App</Typography.Title>
+        <Typography.Title level={3}>Budget Tracker</Typography.Title>
       </Space>
       <Flex>
         <Dropdown

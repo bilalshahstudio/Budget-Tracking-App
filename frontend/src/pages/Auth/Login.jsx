@@ -27,7 +27,7 @@ function Login() {
     // },
   };
   return (
-    <Layout style={{ alignItems: "center" }}>
+    <Layout style={{ alignItems: "center", backgroundColor: "#E2E7F1" }}>
       <Flex
         className="content-container"
         align="center"
@@ -51,11 +51,13 @@ function Login() {
           style={{
             maxWidth: 600,
           }}
-          initialValues={{
-            remember: true,
-            email: "admin@gmail.com",
-            password: "admin123",
-          }}
+          initialValues={
+            {
+              // remember: true,
+              // email: "admin@gmail.com",
+              // password: "admin123",
+            }
+          }
           // onFinish={handleSubmit}
           // onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -66,7 +68,7 @@ function Login() {
           </Form.Item>
           <Form.Item
             name={["user", "email"]}
-            label="Email"
+            // label="Email"
             rules={[
               {
                 type: "email",
@@ -74,11 +76,11 @@ function Login() {
               },
             ]}
           >
-            <InputStyled placeholder="john@example.com" />
+            <InputStyled placeholder="Email*" />
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            // label="Password"
             name="password"
             rules={[
               {
@@ -92,10 +94,10 @@ function Login() {
 
           <Form.Item>
             <Flex justify="space-between" align="center">
-              <Form.Item name="remember" valuePropName="checked" noStyle>
+              {/* <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-              <Link to="/forgotPassword">Forgot password</Link>
+              </Form.Item> */}
+              <Link to="/signup">Forgot password</Link>
             </Flex>
           </Form.Item>
 
