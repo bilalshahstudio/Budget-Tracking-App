@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -26,6 +27,16 @@ function Login() {
     //   range: "${label} must be between ${min} and ${max}",
     // },
   };
+
+  const handleSubmit = async (values) => {
+    const response = await axios.post("http://localhost:5000/login", values);
+
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.token);
+      navigate("/");
+    }
+  };
+
   return (
     <Layout style={{ alignItems: "center", backgroundColor: "#E2E7F1" }}>
       <Flex
@@ -51,14 +62,14 @@ function Login() {
           style={{
             maxWidth: 600,
           }}
-          initialValues={
-            {
-              // remember: true,
-              // email: "admin@gmail.com",
-              // password: "admin123",
-            }
-          }
-          // onFinish={handleSubmit}
+          // initialValues={
+          //   {
+          //     // remember: true,
+          //     // email: "admin@gmail.com",
+          //     // password: "admin123",
+          //   }
+          // }
+          onFinish={handleSubmit}
           // onFinishFailed={onFinishFailed}
           autoComplete="off"
           validateMessages={validateMessages}
@@ -67,7 +78,7 @@ function Login() {
             <Typography.Title>Welcome Back!</Typography.Title>
           </Form.Item>
           <Form.Item
-            name={["user", "email"]}
+            name="email"
             // label="Email"
             rules={[
               {
@@ -106,7 +117,7 @@ function Login() {
               block
               type="primary"
               htmlType="submit"
-              onClick={() => navigate("/")}
+              // onClick={() => navigate("/")}
             >
               Log in
             </ButtonStyled>

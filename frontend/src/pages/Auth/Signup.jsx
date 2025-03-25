@@ -1,6 +1,7 @@
 import React from "react";
+import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
-import { Flex, Form, Layout, Typography } from "antd";
+import { Flex, Form, Layout, Space, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
@@ -18,6 +19,27 @@ const Signup = () => {
     //   range: "${label} must be between ${min} and ${max}",
     // },
   };
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+
+    const { password, confirmPassword } = values;
+
+    if (password === confirmPassword) {
+      console.log(values);
+      const response = await axios.post("http://localhost:5000/register", {
+        ...values,
+        email: values?.user?.email,
+      });
+
+      if (response?.status === 201) {
+        console.log(response?.data);
+      }
+    } else {
+      console.log("password dosen't match");
+    }
+  };
+
   return (
     <Layout style={{ alignItems: "center", backgroundColor: "#dbdbdb" }}>
       <Flex
@@ -56,84 +78,89 @@ const Signup = () => {
             name="signup"
             layout="vertical"
             labelCol={{
-              span: 8,
+              span: 12,
             }}
             wrapperCol={{
-              span: 25,
+              span: 24,
             }}
             style={{
               paddingInline: "14px",
               // flex: 1,
             }}
-            // onFinish={handleSubmit}
+            onFinish={handleSubmit}
             // onFinishFailed={onFinishFailed}
             autoComplete="off"
             validateMessages={validateMessages}
           >
-            <Form.Item>
-              <Typography.Text strong>
-                Already have an account? <Link to="/login">Login</Link>
-              </Typography.Text>
-            </Form.Item>
-            <Form.Item
-              name="fName"
-              // label="First Name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <InputStyled placeholder="John" />
-            </Form.Item>
-            <Form.Item
-              name="lName"
-              // label="Last Name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <InputStyled placeholder="John" />
-            </Form.Item>
-            <Form.Item
-              name={["user", "email"]}
-              // label="Email"
-              rules={[
-                {
-                  type: "email",
-                  required: true,
-                },
-              ]}
-            >
-              <InputStyled placeholder="john@example.com" />
-            </Form.Item>
+            <Space direction="vertical" size={24}>
+              <Form.Item>
+                <Flex vertical>
+                  <Typography.Text strong>Signup!</Typography.Text>
+                  <Typography.Text>
+                    Already have an account? <Link to="/login">Login</Link>
+                  </Typography.Text>
+                </Flex>
+              </Form.Item>
+              <Form.Item
+                name="fName"
+                // label="First Name"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <InputStyled placeholder="John" />
+              </Form.Item>
+              <Form.Item
+                name="lName"
+                // label="Last Name"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <InputStyled placeholder="John" />
+              </Form.Item>
+              <Form.Item
+                name={["user", "email"]}
+                // label="Email"
+                rules={[
+                  {
+                    type: "email",
+                    required: true,
+                  },
+                ]}
+              >
+                <InputStyled placeholder="john@example.com" />
+              </Form.Item>
 
-            <Form.Item
-              // label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <PasswordStyled placeholder="password" />
-            </Form.Item>
-            <Form.Item
-              // label="Confirm Password"
-              name="confirmPassword"
-              rules={[
-                {
-                  required: true,
-                  message: "Confirm password!",
-                },
-              ]}
-            >
-              <PasswordStyled placeholder="confirm password" />
-            </Form.Item>
+              <Form.Item
+                // label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+              >
+                <PasswordStyled placeholder="password" />
+              </Form.Item>
+              <Form.Item
+                // label="Confirm Password"
+                name="confirmPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Confirm password!",
+                  },
+                ]}
+              >
+                <PasswordStyled placeholder="confirm password" />
+              </Form.Item>
+            </Space>
             <Form.Item>
               <ButtonStyled
                 block
@@ -141,7 +168,7 @@ const Signup = () => {
                 htmlType="submit"
                 onClick={<Navigate to="dashboard" />}
               >
-                Sign Up
+                Submit
               </ButtonStyled>
             </Form.Item>
           </Form>
