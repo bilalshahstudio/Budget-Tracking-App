@@ -23,9 +23,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    date: {
-      type: String,
-    },
+    budgets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Budget", // Reference to the Expense model
+      },
+    ],
   },
   { timestamps: true }
 );

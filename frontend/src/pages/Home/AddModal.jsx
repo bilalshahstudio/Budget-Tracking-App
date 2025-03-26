@@ -2,6 +2,7 @@ import { Button as AntBtn, DatePicker, Form, Modal } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { parse } from "date-fns";
 import MyDatePicker from "../../components/MyDatePicker/MyDatePicker";
+import API from "../../api";
 
 function AddModal({ data, open, setOpen }) {
   console.log(data);
@@ -12,18 +13,19 @@ function AddModal({ data, open, setOpen }) {
       : null
   );
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const addUserData = { expense, price, expenseDate };
+  const handleSubmit = async (values) => {
+    //e.preventDefault();
+    const addUserData = values;
 
-    const response = await fetch("http://localhost:5000/", {
-      method: "POST",
-      body: JSON.stringify(addUserData),
-      headers: {
-        "Content-Type": "appication/json",
-      },
-    });
-
+    const response = await API.post("/user_budget", values);
+    // const response = await fetch("http://localhost:5000/", {
+    //   method: "POST",
+    //   body: JSON.stringify(addUserData),
+    //   headers: {
+    //     "Content-Type": "appication/json",
+    //   },
+    // });
+    console.log(response);
     const result = await response.json();
 
     if (!response.ok) {
@@ -71,7 +73,7 @@ function AddModal({ data, open, setOpen }) {
                   <Col xs={24} sm={12} md={8} lg={6}> */}
         <Form.Item
           style={{ width: "100%" }}
-          name="expense"
+          name="budgetName"
           // label="Expense"
         >
           <InputStyled

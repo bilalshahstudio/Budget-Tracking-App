@@ -1,23 +1,19 @@
 const mongoose = require("mongoose");
 
-const expenseSchema = new mongoose.Schema(
+const budgetSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the User model
       required: true,
     },
-    amount: {
+    budgetName: {
+      type: String,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-      enum: ["Food", "Transport", "Entertainment", "Shopping", "Other"],
-    },
-    description: {
-      type: String,
     },
     date: {
       type: Date,
@@ -27,5 +23,5 @@ const expenseSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Expense = mongoose.model("Expense", expenseSchema);
-module.exports = Expense;
+const Budget = mongoose.model("Budget", budgetSchema);
+module.exports = Budget;

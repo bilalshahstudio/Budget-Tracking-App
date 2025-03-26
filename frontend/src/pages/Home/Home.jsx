@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import {
   Button as AntBtn,
   Col,
@@ -11,17 +13,33 @@ import {
   Table,
   Typography,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { useData } from "../../context/DataContext";
 import Button from "../../components/ButtonStyles/Button";
 import AddModal from "./AddModal";
+import API from "../../api";
 
 function Home() {
-  const { data, loading } = useData();
+  const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+
+  console.log(data);
+
+  useEffect(() => {
+    const fetchData = async function () {
+      const response = await API.get(`/user_budget`);
+
+      if (response.status === 200) {
+        setData(response?.data?.budget);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // const [confirmLoading, setConfirmLoading] = useState(false);
 
   // if (loading) return <Spin spinning={loading} />;
@@ -66,9 +84,9 @@ function Home() {
 
   const columns = [
     {
-      title: <Typography.Text strong>Expense Type</Typography.Text>,
-      dataIndex: "expense",
-      key: "expense",
+      title: <Typography.Text strong>Name</Typography.Text>,
+      dataIndex: "budgetName",
+      key: "budgetName",
       // align: "center",
     },
     {

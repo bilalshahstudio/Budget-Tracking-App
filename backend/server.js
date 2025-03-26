@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
+const budgetRoute = require("./routes/budgetRoute");
 
 dotenv.config();
 app.use(express.json());
@@ -23,3 +24,4 @@ mongoose
   });
 
 app.use(userRoute);
+app.use(budgetRoute);
