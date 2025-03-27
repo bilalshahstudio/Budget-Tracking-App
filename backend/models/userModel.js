@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    budgetLimit: {
+      type: Number,
+      required: [true, "Budget limit is required"],
+    },
     budgets: [
       {
         type: mongoose.Schema.Types.ObjectId,

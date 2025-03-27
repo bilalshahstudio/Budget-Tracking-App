@@ -1,21 +1,13 @@
-import axios from "axios";
-
 import {
   Button as AntBtn,
-  Col,
   DatePicker,
   Flex,
-  Form,
-  Modal,
-  Row,
   Space,
-  Spin,
   Table,
   Typography,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import { InputStyled } from "../../components/InputStyles/input.styles";
 import { useData } from "../../context/DataContext";
 import Button from "../../components/ButtonStyles/Button";
 import AddModal from "./AddModal";
@@ -33,7 +25,7 @@ function Home() {
       const response = await API.get(`/user_budget`);
 
       if (response.status === 200) {
-        setData(response?.data?.budget);
+        setData(response?.data);
       }
     };
 

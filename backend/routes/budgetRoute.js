@@ -17,6 +17,27 @@ router.get("/user_budget", authenticateToken, async (req, res) => {
   }
 });
 
+// router.post("/user_budget", authenticateToken, async (req, res) => {
+//   try {
+//     const id = req.user.userId;
+//     //const singleUserData = await User.findById({ _id: id });
+
+//     const { budgetName, price } = req.body;
+
+//     const addBudget = await Budget.create({
+//       userId: id,
+//       budgetName,
+//       price,
+//     });
+
+//     res.status(200).json(addBudget);
+//   } catch (error) {
+//     console.log(error);
+
+//     res.sendStatus(500).json({ error: error.message });
+//   }
+// });
+
 router.post("/user_budget", authenticateToken, async (req, res) => {
   try {
     const id = req.user.userId;
@@ -24,17 +45,23 @@ router.post("/user_budget", authenticateToken, async (req, res) => {
 
     const { budgetName, price } = req.body;
 
-    const addBudget = await Budget.create({
+    const addBudget = new Budget({
       userId: id,
       budgetName,
       price,
     });
 
-    res.status(200).json(addBudget);
+    await addBudget.save();
+
+    res
+      .status(200)
+      .json({ message: "Budget data saved successfully", budget: addBudget });
   } catch (error) {
     console.log(error);
 
-    res.sendStatus(500).json({ error: error.message });
+    res
+      .sendStatus(500)
+      .json({ message: "Error saving budget data", error: error.message });
   }
 });
 
