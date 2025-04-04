@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import API from "../api";
 
 const DataContext = createContext();
 
@@ -10,16 +10,13 @@ export const DataProvider = ({ children }) => {
   console.log(data);
 
   useEffect(() => {
-    // axios
-    //   .get("http://localhost:5000/users")
-    //   .then((res) => {
-    //     setData(res.data);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setLoading(false);
-    //   });
+    // const fetchData = async function () {
+    //   const response = await API.get(`/user_budget`);
+    //   if (response.status === 200) {
+    //     setData(response?.data?.budgets);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   const contextValue = useMemo(() => ({ data, loading }), [data, loading]);

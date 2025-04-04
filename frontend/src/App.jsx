@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Home from "./pages/Home/Home";
 // import Auth from "./components/Auth/Auth";
 import { Flex, Layout, Spin } from "antd";
+// import { DataProvider } from "./context/DataContext";
 // import AppHeader from "./components/AppHeader/AppHeader";
 // import Analytics from "./pages/Analytics/Analytics";
 

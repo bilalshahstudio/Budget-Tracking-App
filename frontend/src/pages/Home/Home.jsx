@@ -8,7 +8,6 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import { useData } from "../../context/DataContext";
 import Button from "../../components/ButtonStyles/Button";
 import AddModal from "./AddModal";
 import API from "../../api";
@@ -142,6 +141,7 @@ function Home() {
             Edit
           </AntBtn>
           <AntBtn
+            // onClick={() => handleDelete(record._id)}
             onClick={() => handleDelete(record._id)}
             type="link"
             icon={<DeleteFilled />}
