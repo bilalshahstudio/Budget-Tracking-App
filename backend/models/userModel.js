@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     budgetLimit: {
       type: Number,
-      required: [true, "Budget limit is required"],
+      required: [false, "Budget limit is required"],
     },
     budgets: [
       {

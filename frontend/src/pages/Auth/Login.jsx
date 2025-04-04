@@ -14,6 +14,7 @@ import { InputStyled } from "../../components/InputStyles/input.styles";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
+import API from "../../api";
 
 function Login() {
   const navigate = useNavigate();
@@ -29,10 +30,10 @@ function Login() {
   };
 
   const handleSubmit = async (values) => {
-    const response = await axios.post("http://localhost:5000/login", values);
+    const response = await API.post("/login", values);
 
     if (response.status === 200) {
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response?.data?.token);
       navigate("/");
     }
   };

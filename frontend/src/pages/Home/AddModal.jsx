@@ -4,36 +4,27 @@ import { parse } from "date-fns";
 import MyDatePicker from "../../components/MyDatePicker/MyDatePicker";
 import API from "../../api";
 
-function AddModal({ data, open, setOpen }) {
-  console.log(data);
+function AddModal({ data, open, setOpen, isEdit }) {
+  // console.log(data);
 
-  console.log(
-    data?.expenseDate
-      ? parse(data?.expenseDate, "dd-MM-yyyy", new Date())
-      : null
-  );
+  // console.log(
+  //   data?.expenseDate
+  //     ? parse(data?.expenseDate, "dd-MM-yyyy", new Date())
+  //     : null
+  // );
 
   const handleSubmit = async (values) => {
-    e.preventDefault();
-    const addUserData = values;
-    console.log(values);
+    // const addUserData = values;
 
     const response = await API.post("/user_budget", values);
-    // const response = await fetch("http://localhost:5000/", {
-    //   method: "POST",
-    //   body: JSON.stringify(addUserData),
-    //   headers: {
-    //     "Content-Type": "appication/json",
-    //   },
-    // });
-    console.log(response);
-    const result = await response.json();
+
+    const result = response.data;
 
     if (!response.ok) {
       console.log(result.error);
-    }
-    if (response.ok) {
+    } else {
       console.log(result);
+      setOpen(false);
     }
   };
 
@@ -44,7 +35,7 @@ function AddModal({ data, open, setOpen }) {
 
   return (
     <Modal
-      title="Add Budget"
+      title={`${isEdit ? "Edit" : "Add"} Budget`}
       open={open}
       centered
       // onOk={handleOk}
@@ -76,7 +67,7 @@ function AddModal({ data, open, setOpen }) {
           name="budgetName"
           // label="Expense"
         >
-          <Input
+          <InputStyled
             placeholder="Expense Type"
             value="budgetName"
             // defaultValue={data?.expense}
@@ -93,7 +84,7 @@ function AddModal({ data, open, setOpen }) {
             placeholder="Price"
             // defaultValue={`${data?.price}`}
             // value={`${data?.price}`}
-            onChange={(e) => setPrice(e.target.value)}
+            // onChange={(e) => setPrice(e.target.value)}
           />
         </Form.Item>
         {/* <Form.Item label="Date">

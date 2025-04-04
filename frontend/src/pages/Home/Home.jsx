@@ -17,15 +17,14 @@ function Home() {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-
-  console.log(data);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     const fetchData = async function () {
       const response = await API.get(`/user_budget`);
 
       if (response.status === 200) {
-        setData(response?.data);
+        setData(response?.data?.budgets);
       }
     };
 
@@ -35,10 +34,25 @@ function Home() {
   // const [confirmLoading, setConfirmLoading] = useState(false);
 
   // if (loading) return <Spin spinning={loading} />;
-  const showModal = () => {
+  const showModal = (item, isEdit) => {
+    console.log(item);
     setOpen(true);
-    setSelectedItem(null);
+    setSelectedItem(item);
+    setIsEdit(isEdit);
   };
+
+  const handleDelete = async (record) => {
+    const response = await API.post("/user_budget", record);
+
+    const result = response.data;
+
+    if (!response.ok) {
+      console.log(result.error);
+    } else {
+      console.log(result);
+    }
+  };
+
   const handleOk = () => {
     setOpen(false);
     // setModalText("The modal will be closed after two seconds");
@@ -91,7 +105,7 @@ function Home() {
       title: <Typography.Text strong>Date</Typography.Text>,
       dataIndex: "expenseDate",
       key: "expenseDate",
-      filters: [{ date: "", value: "expenseDate" }],
+      // filters: [{ date: "", value: "expenseDate" }],
       align: "center",
     },
     {
@@ -102,17 +116,14 @@ function Home() {
       render: (_, record) => (
         <>
           <AntBtn
-            onClick={() => {
-              setOpen(true);
-              setSelectedItem(record);
-            }}
+            onClick={() => showModal(record, true)}
             type="link"
             icon={<EditFilled />}
           >
             Edit
           </AntBtn>
           <AntBtn
-            onClick={() => console.log("clicked delete button")}
+            onClick={() => handleDelete(record)}
             type="link"
             icon={<DeleteFilled />}
           >
@@ -151,92 +162,16 @@ function Home() {
             color: "#fff",
             backgroundColor: "#000",
           }}
-          onClick={showModal}
+          onClick={() => showModal(null, false)}
         >
           Add Budget
         </Button>
-        <AddModal data={selectedItem} open={open} setOpen={setOpen} />
-        {/* <Modal
-          title="Add Budget"
+        <AddModal
+          data={selectedItem}
           open={open}
-          centered
-          // onOk={handleOk}
-          // confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <Form
-            onFinish={handleSubmit}
-            // labelCol={{ xs: { span: 24 }, sm: { span: 8 } }}
-            // wrapperCol={{ xs: { span: 24 }, sm: { span: 16 } }}
-            layout="vertical"
-            style={{
-              // maxWidth: 600,
-              // width: "600px",
-              justifyItems: "center",
-            }}
-          >
-            {/* <Row gutter={[16, 16]}>
-              <Col xs={24} sm={12} md={8} lg={6}>
-            <Form.Item
-              style={{ width: "100%" }}
-              name="expense"
-              // label="Expense"
-            >
-              <InputStyled
-                placeholder="Expense Type"
-                value={data?.expense}
-                onChange={(e) => setExpense(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              style={{ width: "100%" }}
-              name="price"
-              //  label="Price"
-            >
-              <InputStyled
-                placeholder="Price"
-                value={data?.price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </Form.Item>
-            {/* <Form.Item label="Date">
-              <DatePickerStyled
-                value={expenseDate}
-                onChange={(e) => setExpenseDate(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              //  label="Date"
-              style={{ width: "100%" }}
-            >
-              {/* <InputStyled
-                placeholder="Date"
-                value={data?.expenseDate}
-                onChange={(e) => setExpenseDate(e.target.value)}
-              />
-              <DatePicker
-                defaultValue={new Date(data?.expenseDate)}
-                // onChange={(e) => setExpenseDate(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item>
-              <AntBtn
-                style={{
-                  backgroundColor: "#000",
-                  color: "#fff",
-                  borderRadius: 0,
-                }}
-                type="primary"
-                htmlType="submit"
-              >
-                Submit
-              </AntBtn>
-            </Form.Item>
-            {/* </Col>
-            </Row>
-          </Form>
-        </Modal> */}
+          isEdit={isEdit}
+          setOpen={setOpen}
+        />
       </Flex>
       <Table
         style={{
@@ -244,7 +179,7 @@ function Home() {
           // border: "1px solid",
           // borderColor: "#cac2c2",
         }}
-        dataSource={data}
+        dataSource={data.length ? data : null}
         columns={columns}
         size="small"
       />
