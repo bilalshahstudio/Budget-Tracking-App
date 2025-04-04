@@ -81,6 +81,7 @@ function Login() {
           <Form.Item
             name="email"
             // label="Email"
+
             rules={[
               {
                 type: "email",

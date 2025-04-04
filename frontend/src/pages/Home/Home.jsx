@@ -41,52 +41,71 @@ function Home() {
     setIsEdit(isEdit);
   };
 
-  const handleDelete = async (record) => {
-    const response = await API.post("/user_budget", record);
+  // const handleDelete = async (record) => {
+  //   const response = await API.delete(`/user_budget`, record);
 
-    const result = response.data;
+  //   const result = response.data;
 
-    if (!response.ok) {
-      console.log(result.error);
-    } else {
-      console.log(result);
+  //   if (!response.ok) {
+  //     console.log(result.error);
+  //   } else {
+  //     fetchData();
+  //     console.log(result);
+  //     alert("Budget deleted successfully!");
+  //   }
+  // };
+
+  const handleDelete = async (budgetId) => {
+    try {
+      const response = await API.delete(`/user_budget/${budgetId}`);
+
+      if (response.status === 200) {
+        console.log("Budget deleted successfully:", response.data);
+
+        // Update state to remove the deleted item from the list
+        setData((prevData) => prevData.filter((item) => item._id !== budgetId));
+      } else {
+        console.log(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error deleting budget:", error);
     }
   };
 
-  const handleOk = () => {
-    setOpen(false);
-    // setModalText("The modal will be closed after two seconds");
-    // setConfirmLoading(true);
-    // setTimeout(() => {
-    //   setConfirmLoading(false);
-    // }, 2000);
-  };
+  // const handleOk = () => {
+  //   setOpen(false);
+  //   // setModalText("The modal will be closed after two seconds");
+  //   // setConfirmLoading(true);
+  //   // setTimeout(() => {
+  //   //   setConfirmLoading(false);
+  //   // }, 2000);
+  // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const addUserData = { expense, price, expenseDate };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const addUserData = { expense, price, expenseDate };
 
-    const response = await fetch("http://localhost:5000/", {
-      method: "POST",
-      body: JSON.stringify(addUserData),
-      headers: {
-        "Content-Type": "appication/json",
-      },
-    });
+  //   const response = await fetch("http://localhost:5000/", {
+  //     method: "POST",
+  //     body: JSON.stringify(addUserData),
+  //     headers: {
+  //       "Content-Type": "appication/json",
+  //     },
+  //   });
 
-    const result = await response.json();
+  //   const result = await response.json();
 
-    if (!response.ok) {
-      console.log(result.error);
-    }
-    if (response.ok) {
-      console.log(result);
-    }
-  };
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setOpen(false);
-  };
+  //   if (!response.ok) {
+  //     console.log(result.error);
+  //   }
+  //   if (response.ok) {
+  //     console.log(result);
+  //   }
+  // };
+  // const handleCancel = () => {
+  //   console.log("Clicked cancel button");
+  //   setOpen(false);
+  // };
 
   const columns = [
     {
@@ -123,7 +142,7 @@ function Home() {
             Edit
           </AntBtn>
           <AntBtn
-            onClick={() => handleDelete(record)}
+            onClick={() => handleDelete(record._id)}
             type="link"
             icon={<DeleteFilled />}
           >
@@ -179,7 +198,9 @@ function Home() {
           // border: "1px solid",
           // borderColor: "#cac2c2",
         }}
-        dataSource={data.length ? data : null}
+        rowKey="_id"
+        // key={key}
+        dataSource={data?.length ? data : null}
         columns={columns}
         size="small"
       />

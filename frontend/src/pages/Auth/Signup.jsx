@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Flex, Form, Layout, Space, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
@@ -8,6 +8,7 @@ import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import signupImage from "../../assets/3.jpg";
 
 const Signup = () => {
+  const navigate = useNavigate();
   // const { signup } = userData();
   const validateMessages = {
     required: "${label} is required!",
@@ -34,6 +35,7 @@ const Signup = () => {
 
       if (response?.status === 201) {
         console.log(response?.data);
+        navigate("/login");
       }
     } else {
       console.log("password dosen't match");

@@ -20,11 +20,18 @@ function AddModal({ data, open, setOpen, isEdit }) {
 
     const result = response.data;
 
-    if (!response.ok) {
-      console.log(result.error);
-    } else {
-      console.log(result);
+    // if (!response.ok) {
+    //   console.log(result.error);
+    // } else {
+    //   console.log(result);
+    //   setOpen(false);
+    // }
+
+    if (response.status === 200) {
+      console.log("Budget added successfully:", result);
       setOpen(false);
+    } else {
+      console.log("Error:", result.error);
     }
   };
 
