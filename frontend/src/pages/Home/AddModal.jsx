@@ -3,6 +3,7 @@ import { InputStyled } from "../../components/InputStyles/input.styles";
 import { parse } from "date-fns";
 import MyDatePicker from "../../components/MyDatePicker/MyDatePicker";
 import API from "../../api";
+import Home from "./Home";
 
 function AddModal({ data, open, setOpen, isEdit }) {
   // console.log(data);

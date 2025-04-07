@@ -1,14 +1,29 @@
 import { Avatar, Dropdown, Flex, Space, Typography } from "antd";
 import budgetLogo from "../../assets/pie.png";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { data, Link } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
+import API from "../../api";
 
 function AppHeader() {
+  useEffect(() => {
+    const fetchUserName = async function () {
+      const response = await API.get(`/user_budget`);
+
+      if (response.status === 200) {
+        setUserName(response?.data?.fName);
+      } else {
+        console.log("Error:", result.error);
+      }
+    };
+
+    fetchUserName();
+  }, []);
+  const [userName, setUserName] = useState();
   const items = [
     {
       key: "1",
-      label: "My Account",
+      label: userName?.length ? userName : "Login",
       disabled: true,
     },
     {
@@ -19,6 +34,7 @@ function AppHeader() {
       label: <Link to="/login">Logout</Link>,
     },
   ];
+
   return (
     <Flex
       justify="space-between"

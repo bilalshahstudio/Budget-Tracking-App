@@ -24,6 +24,8 @@ function Home() {
 
       if (response.status === 200) {
         setData(response?.data?.budgets);
+      } else {
+        console.log("Error:", result.error);
       }
     };
 

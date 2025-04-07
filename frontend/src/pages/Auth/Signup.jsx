@@ -74,7 +74,7 @@ const Signup = () => {
             Start your Journey With Us
           </Typography.Title>
         </Flex>
-        <Flex>
+        <Flex className="form-container">
           <Form
             // name="basic"
             name="signup"
@@ -94,75 +94,84 @@ const Signup = () => {
             autoComplete="off"
             validateMessages={validateMessages}
           >
-            <Space direction="vertical" size={24}>
-              <Form.Item>
-                <Flex vertical>
-                  <Typography.Text strong>Signup!</Typography.Text>
-                  <Typography.Text>
-                    Already have an account? <Link to="/login">Login</Link>
-                  </Typography.Text>
-                </Flex>
-              </Form.Item>
-              <Form.Item
-                name="fName"
-                // label="First Name"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <InputStyled placeholder="John" />
-              </Form.Item>
-              <Form.Item
-                name="lName"
-                // label="Last Name"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <InputStyled placeholder="John" />
-              </Form.Item>
-              <Form.Item
-                name={["user", "email"]}
-                // label="Email"
-                rules={[
-                  {
-                    type: "email",
-                    required: true,
-                  },
-                ]}
-              >
-                <InputStyled placeholder="john@example.com" />
-              </Form.Item>
-
-              <Form.Item
-                // label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <PasswordStyled placeholder="password" />
-              </Form.Item>
-              <Form.Item
-                // label="Confirm Password"
-                name="confirmPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Confirm password!",
-                  },
-                ]}
-              >
-                <PasswordStyled placeholder="confirm password" />
-              </Form.Item>
-            </Space>
+            {/* <Space direction="vertical" size="small"> */}
+            <Form.Item>
+              {/* <Flex vertical> */}
+              <Typography.Text strong>Signup!</Typography.Text>
+              <br />
+              <Typography.Text>
+                Already have an account? <Link to="/login">Login</Link>
+              </Typography.Text>
+              {/* </Flex> */}
+            </Form.Item>
+            <Form.Item
+              name="fName"
+              // label="First Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <InputStyled placeholder="John" />
+            </Form.Item>
+            <Form.Item
+              name="lName"
+              // label="Last Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <InputStyled placeholder="John" />
+            </Form.Item>
+            <Form.Item
+              name={["user", "email"]}
+              // label="Email"
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                },
+              ]}
+            >
+              <InputStyled placeholder="john@example.com" />
+            </Form.Item>
+            <Form.Item
+              // label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <PasswordStyled placeholder="password" />
+            </Form.Item>
+            <Form.Item
+              // label="Confirm Password"
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Confirm password!",
+                },
+              ]}
+            >
+              <PasswordStyled placeholder="confirm password" />
+            </Form.Item>
+            <Form.Item
+              name="budgetLimit"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <InputStyled placeholder="Budget Limit" />
+            </Form.Item>
             <Form.Item>
               <ButtonStyled
                 block
@@ -173,6 +182,7 @@ const Signup = () => {
                 Submit
               </ButtonStyled>
             </Form.Item>
+            {/* </Space> */}
           </Form>
         </Flex>
       </Flex>

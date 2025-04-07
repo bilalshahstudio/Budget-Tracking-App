@@ -10,13 +10,13 @@ export const DataProvider = ({ children }) => {
   console.log(data);
 
   useEffect(() => {
-    // const fetchData = async function () {
-    //   const response = await API.get(`/user_budget`);
-    //   if (response.status === 200) {
-    //     setData(response?.data?.budgets);
-    //   }
-    // };
-    // fetchData();
+    const fetchData = async function () {
+      const response = await API.get(`/user_budget`);
+      if (response.status === 200) {
+        setData(response?.data);
+      }
+    };
+    fetchData();
   }, []);
 
   const contextValue = useMemo(() => ({ data, loading }), [data, loading]);
