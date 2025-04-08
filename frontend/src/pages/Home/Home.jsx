@@ -11,6 +11,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import Button from "../../components/ButtonStyles/Button";
 import AddModal from "./AddModal";
 import API from "../../api";
+import { format } from "date-fns";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -123,10 +124,11 @@ function Home() {
     },
     {
       title: <Typography.Text strong>Date</Typography.Text>,
-      dataIndex: "expenseDate",
-      key: "expenseDate",
+      dataIndex: "date",
+      key: "date",
       // filters: [{ date: "", value: "expenseDate" }],
       align: "center",
+      render: (date) => format(new Date(date), "dd-MM-yyyy"),
     },
     {
       title: <Typography.Text strong>Action</Typography.Text>,

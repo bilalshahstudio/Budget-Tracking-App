@@ -1,6 +1,6 @@
 import { Button as AntBtn, DatePicker, Form, Input, Modal } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import { parse } from "date-fns";
+import { format, parse } from "date-fns";
 import MyDatePicker from "../../components/MyDatePicker/MyDatePicker";
 import API from "../../api";
 import Home from "./Home";
@@ -17,9 +17,23 @@ function AddModal({ data, open, setOpen, isEdit }) {
   const handleSubmit = async (values) => {
     // const addUserData = values;
 
-    const response = await API.post("/user_budget", values);
+    console.log(values.date);
 
-    const result = response.data;
+    const jsDate = values.date.toDate();
+
+    // const formattedDate = format(jsDate, "yyyy-MM-dd");
+
+    console.log("Selected Date:", values.date);
+    console.log("Converted JS Date:", jsDate);
+
+    const payload = {
+      ...values,
+      date: jsDate, // or formattedDate
+    };
+
+    const response = await API.post("/user_budget", payload);
+
+    const result = response?.data;
 
     // if (!response.ok) {
     //   console.log(result.error);
@@ -103,7 +117,7 @@ function AddModal({ data, open, setOpen, isEdit }) {
                 </Form.Item> */}
         <Form.Item
           //  label="Date"
-          //   name="expenseDate"
+          name="date"
           style={{ width: "100%" }}
         >
           {/* <InputStyled
@@ -112,7 +126,7 @@ function AddModal({ data, open, setOpen, isEdit }) {
                     onChange={(e) => setExpenseDate(e.target.value)}
                   /> */}
           <DatePicker
-          // defaultValue={new Date(data?.expenseDate)}
+          // defaultValue={() => new Date()}
           // onChange={(e) => setExpenseDate(e.target.value)}
           />
         </Form.Item>

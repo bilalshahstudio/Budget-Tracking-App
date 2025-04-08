@@ -45,12 +45,13 @@ router.post("/user_budget", authenticateToken, async (req, res) => {
     const id = req.user.userId;
     //const singleUserData = await User.findById({ _id: id });
 
-    const { budgetName, price } = req.body;
+    const { budgetName, price, date } = req.body;
 
     const addBudget = new Budget({
       userId: id,
       budgetName,
       price,
+      date,
     });
 
     const newBudget = await addBudget.save();
