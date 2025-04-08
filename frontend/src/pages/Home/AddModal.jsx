@@ -4,27 +4,22 @@ import { format, parse } from "date-fns";
 import MyDatePicker from "../../components/MyDatePicker/MyDatePicker";
 import API from "../../api";
 import Home from "./Home";
+import { useEffect } from "react";
+import { useForm } from "antd/es/form/Form";
 
-function AddModal({ data, open, setOpen, isEdit }) {
-  // console.log(data);
-
-  // console.log(
-  //   data?.expenseDate
-  //     ? parse(data?.expenseDate, "dd-MM-yyyy", new Date())
-  //     : null
-  // );
+function AddModal({ data, open, setOpen, isEdit, refreshData }) {
+  console.log(data, isEdit, open);
 
   const handleSubmit = async (values) => {
     // const addUserData = values;
 
-    console.log(values.date);
-
-    const jsDate = values.date.toDate();
+    const jsDate = values.date;
 
     // const formattedDate = format(jsDate, "yyyy-MM-dd");
 
     console.log("Selected Date:", values.date);
     console.log("Converted JS Date:", jsDate);
+    console.log("Data from backend:", data);
 
     const payload = {
       ...values,
@@ -35,16 +30,10 @@ function AddModal({ data, open, setOpen, isEdit }) {
 
     const result = response?.data;
 
-    // if (!response.ok) {
-    //   console.log(result.error);
-    // } else {
-    //   console.log(result);
-    //   setOpen(false);
-    // }
-
     if (response.status === 200) {
       console.log("Budget added successfully:", result);
       setOpen(false);
+      refreshData();
     } else {
       console.log("Error:", result.error);
     }
@@ -78,8 +67,7 @@ function AddModal({ data, open, setOpen, isEdit }) {
         }}
         initialValues={{
           ...data,
-          // ? parse(data?.expenseDate, "dd-MM-yyyy", new Date())
-          // : null,
+          date: data?.date ? format(new Date(date), "dd-MM-yyyy") : null,
         }}
       >
         {/* <Row gutter={[16, 16]}>
@@ -92,7 +80,7 @@ function AddModal({ data, open, setOpen, isEdit }) {
           <InputStyled
             placeholder="Expense Type"
             value="budgetName"
-            // defaultValue={data?.expense}
+            // defaultValue={data?.budgetName}
             // value={data?.expense}
             // onChange={(e) => setExpense(e.target.value)}
           />
@@ -126,8 +114,10 @@ function AddModal({ data, open, setOpen, isEdit }) {
                     onChange={(e) => setExpenseDate(e.target.value)}
                   /> */}
           <DatePicker
-          // defaultValue={() => new Date()}
-          // onChange={(e) => setExpenseDate(e.target.value)}
+            value="date"
+
+            // defaultValue={() => new Date()}
+            // onChange={(e) => setExpenseDate(e.target.value)}
           />
         </Form.Item>
         <Form.Item>

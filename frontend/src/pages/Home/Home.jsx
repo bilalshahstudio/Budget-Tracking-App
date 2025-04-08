@@ -19,19 +19,18 @@ function Home() {
   const [selectedItem, setSelectedItem] = useState({});
   const [isEdit, setIsEdit] = useState(false);
 
+  const fetchData = async function () {
+    const response = await API.get(`/user_budget`);
+
+    if (response.status === 200) {
+      setData(response?.data?.budgets);
+    } else {
+      console.log("Error:", result.error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async function () {
-      const response = await API.get(`/user_budget`);
-
-      if (response.status === 200) {
-        setData(response?.data?.budgets);
-      } else {
-        console.log("Error:", result.error);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [open]);
 
   // const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -190,10 +189,12 @@ function Home() {
           Add Budget
         </Button>
         <AddModal
-          data={selectedItem}
+          // data={selectedItem}
+          data={data}
           open={open}
           isEdit={isEdit}
           setOpen={setOpen}
+          refreshData={fetchData}
         />
       </Flex>
       <Table
