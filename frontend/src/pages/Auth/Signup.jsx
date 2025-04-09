@@ -5,7 +5,8 @@ import { Flex, Form, Layout, Space, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
-import signupImage from "../../assets/3.jpg";
+import signupImage from "../../assets/1.jpg";
+import API from "../../api";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,11 +15,7 @@ const Signup = () => {
     required: "${label} is required!",
     types: {
       email: "${label} is not a valid email!",
-      // number: "${label} is not a valid number!",
     },
-    // number: {
-    //   range: "${label} must be between ${min} and ${max}",
-    // },
   };
 
   const handleSubmit = async (values) => {
@@ -28,9 +25,8 @@ const Signup = () => {
 
     if (password === confirmPassword) {
       console.log(values);
-      const response = await axios.post("http://localhost:5000/register", {
+      const response = await API.post("/register", {
         ...values,
-        email: values?.user?.email,
       });
 
       if (response?.status === 201) {
@@ -127,7 +123,7 @@ const Signup = () => {
               <InputStyled placeholder="John" />
             </Form.Item>
             <Form.Item
-              name={["user", "email"]}
+              name="email"
               // label="Email"
               rules={[
                 {

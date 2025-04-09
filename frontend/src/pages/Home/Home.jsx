@@ -18,6 +18,7 @@ function Home() {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [isEdit, setIsEdit] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchData = async function () {
     const response = await API.get(`/user_budget`);
@@ -37,6 +38,19 @@ function Home() {
     setOpen(true);
     setSelectedItem(item);
     setIsEdit(isEdit);
+  };
+
+  const handleFilter = () => {
+    if (!selectedDate) return;
+
+    const formattedSelectedDate = format(selectedDate.toDate(), "dd-MM-yyyy");
+
+    const filteredData = data.filter((item) => {
+      const itemDate = format(new Date(item.date), "dd-MM-yyyy");
+      return itemDate === formattedSelectedDate;
+    });
+
+    setData(filteredData);
   };
 
   const handleDelete = async (budgetId) => {
@@ -121,10 +135,11 @@ function Home() {
         wrap
       >
         <Space wrap>
-          <DatePicker style={{ padding: "13px" }} />{" "}
-          <Button onClick={() => console.log("clicked filter record button")}>
-            Filter Records
-          </Button>
+          <DatePicker
+            style={{ padding: "13px" }}
+            onChange={(date) => setSelectedDate(date)}
+          />
+          <Button onClick={handleFilter}>Filter Records</Button>
         </Space>
         <Button
           style={{

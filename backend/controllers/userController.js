@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const userModel = require("../models/userModel");
+const { v4: uuidv4 } = require("uuid");
 
 //Login Callback
 const loginController = async (req, res) => {
@@ -33,7 +34,11 @@ const loginController = async (req, res) => {
 //Register Callback
 const registerController = async (req, res) => {
   try {
-    const newUser = new userModel(req.body);
+    const userData = {
+      ...req.body,
+      userID: uuidv4(), // Generate unique userID
+    };
+    const newUser = new userModel(userData);
     await newUser.save();
     res.status(201).json({ success: true, newUser });
   } catch (error) {
