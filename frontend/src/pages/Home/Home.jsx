@@ -30,31 +30,14 @@ function Home() {
   };
   useEffect(() => {
     fetchData();
-  }, [open]);
+  }, []);
 
-  // const [confirmLoading, setConfirmLoading] = useState(false);
-
-  // if (loading) return <Spin spinning={loading} />;
   const showModal = (item, isEdit) => {
     console.log(item);
     setOpen(true);
     setSelectedItem(item);
     setIsEdit(isEdit);
   };
-
-  // const handleDelete = async (record) => {
-  //   const response = await API.delete(`/user_budget`, record);
-
-  //   const result = response.data;
-
-  //   if (!response.ok) {
-  //     console.log(result.error);
-  //   } else {
-  //     fetchData();
-  //     console.log(result);
-  //     alert("Budget deleted successfully!");
-  //   }
-  // };
 
   const handleDelete = async (budgetId) => {
     try {
@@ -72,41 +55,6 @@ function Home() {
       console.error("Error deleting budget:", error);
     }
   };
-
-  // const handleOk = () => {
-  //   setOpen(false);
-  //   // setModalText("The modal will be closed after two seconds");
-  //   // setConfirmLoading(true);
-  //   // setTimeout(() => {
-  //   //   setConfirmLoading(false);
-  //   // }, 2000);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const addUserData = { expense, price, expenseDate };
-
-  //   const response = await fetch("http://localhost:5000/", {
-  //     method: "POST",
-  //     body: JSON.stringify(addUserData),
-  //     headers: {
-  //       "Content-Type": "appication/json",
-  //     },
-  //   });
-
-  //   const result = await response.json();
-
-  //   if (!response.ok) {
-  //     console.log(result.error);
-  //   }
-  //   if (response.ok) {
-  //     console.log(result);
-  //   }
-  // };
-  // const handleCancel = () => {
-  //   console.log("Clicked cancel button");
-  //   setOpen(false);
-  // };
 
   const columns = [
     {

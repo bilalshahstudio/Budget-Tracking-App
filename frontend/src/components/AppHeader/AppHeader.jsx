@@ -23,15 +23,15 @@ function AppHeader() {
   const items = [
     {
       key: "1",
-      label: userName?.length ? userName : "Login",
-      disabled: true,
+      label: userName?.length ? userName : <Link to="/login">Login</Link>,
+      // disabled: true,
     },
     {
       type: "divider",
     },
     {
       key: "2",
-      label: <Link to="/login">Logout</Link>,
+      label: userName?.length ? <Link to="/login">Logout</Link> : null,
     },
   ];
 
