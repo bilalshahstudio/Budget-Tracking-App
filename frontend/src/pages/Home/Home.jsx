@@ -8,10 +8,10 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import Button from "../../components/ButtonStyles/Button";
 import AddModal from "./AddModal";
 import API from "../../api";
 import { format } from "date-fns";
+import StyledButton from "../../components/ButtonStyles/Button";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -139,18 +139,20 @@ function Home() {
             style={{ padding: "13px" }}
             onChange={(date) => setSelectedDate(date)}
           />
-          <Button onClick={handleFilter}>Filter Records</Button>
+          <StyledButton onClick={handleFilter}>Filter Records</StyledButton>
         </Space>
-        <Button
-          style={{
-            // padding: "24px",
-            color: "#fff",
-            backgroundColor: "#000",
-          }}
+        <StyledButton
+          style={
+            {
+              // padding: "24px",
+              // color: "#fff",
+              // backgroundColor: "#000",
+            }
+          }
           onClick={() => showModal(null, false)}
         >
           Add Budget
-        </Button>
+        </StyledButton>
         <AddModal
           // data={selectedItem}
           data={data}

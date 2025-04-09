@@ -81,8 +81,8 @@ function Analytics() {
         className="chart-container"
         style={{
           // justifyItems: "center",
-          marginTop: "2%",
-          marginInline: "4%",
+          // marginTop: "2%",
+          // marginInline: "4%",
           padding: "4%",
           backgroundColor: "#fff",
         }}
