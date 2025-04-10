@@ -16,7 +16,7 @@ import { PasswordStyled } from "../../components/PasswordStyles/password.styles"
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import API from "../../api";
 
-function Login() {
+function Login({ setUserData }) {
   const navigate = useNavigate();
   const validateMessages = {
     required: "${label} is required!",
@@ -34,6 +34,7 @@ function Login() {
 
     if (response.status === 200) {
       localStorage.setItem("token", response?.data?.token);
+      setUserData(response?.data);
       navigate("/");
     }
   };

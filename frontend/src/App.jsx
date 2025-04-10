@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Login from "./pages/Auth/Login";
 // import Signup from "./pages/Auth/Signup";
@@ -19,6 +19,7 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 
 function App() {
+  const [userData, setUserData] = useState("");
   return (
     <Router>
       <Suspense
@@ -30,12 +31,15 @@ function App() {
       >
         <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
           {/* Common Header */}
-          <AppHeader />
+          <AppHeader userData={userData} />
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Login setUserData={setUserData} />} />
 
             {/* Authentication Pages */}
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={<Login setUserData={setUserData} />}
+            />
             <Route path="/signup" exact element={<Signup />} />
             {/* Protected Routes */}
             <Route

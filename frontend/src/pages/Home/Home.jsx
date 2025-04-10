@@ -87,7 +87,6 @@ function Home() {
       title: <Typography.Text strong>Date</Typography.Text>,
       dataIndex: "date",
       key: "date",
-      // filters: [{ date: "", value: "expenseDate" }],
       align: "center",
       render: (date) => format(new Date(date), "dd-MM-yyyy"),
     },
@@ -106,7 +105,6 @@ function Home() {
             Edit
           </AntBtn>
           <AntBtn
-            // onClick={() => handleDelete(record._id)}
             onClick={() => handleDelete(record._id)}
             type="link"
             icon={<DeleteFilled />}
@@ -121,19 +119,8 @@ function Home() {
     <Flex
       // justify="center"
       vertical
-      style={
-        {
-          // marginInline: "10%",
-          // marginTop: "14px",
-        }
-      }
     >
-      <Flex
-        justify="space-between"
-        className="header-items-container"
-        // onSubmit={handleSubmit}
-        wrap
-      >
+      <Flex justify="space-between" className="header-items-container" wrap>
         <Space wrap>
           <DatePicker
             style={{ padding: "13px" }}
@@ -141,21 +128,11 @@ function Home() {
           />
           <StyledButton onClick={handleFilter}>Filter Records</StyledButton>
         </Space>
-        <StyledButton
-          style={
-            {
-              // padding: "24px",
-              // color: "#fff",
-              // backgroundColor: "#000",
-            }
-          }
-          onClick={() => showModal(null, false)}
-        >
+        <StyledButton onClick={() => showModal(null, false)}>
           Add Budget
         </StyledButton>
         <AddModal
-          // data={selectedItem}
-          data={data}
+          data={selectedItem}
           open={open}
           isEdit={isEdit}
           setOpen={setOpen}
@@ -165,11 +142,9 @@ function Home() {
       <Table
         style={{
           marginTop: "8px",
-          // border: "1px solid",
-          // borderColor: "#cac2c2",
         }}
         rowKey="_id"
-        // key={key}
+        scroll={{ x: "max-content" }}
         dataSource={data?.length ? data : null}
         columns={columns}
         size="small"

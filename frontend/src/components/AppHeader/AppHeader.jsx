@@ -1,11 +1,12 @@
 import { Avatar, Dropdown, Flex, Space, Typography } from "antd";
 import budgetLogo from "../../assets/pie.png";
 import React, { useEffect, useState } from "react";
-import { data, Link } from "react-router-dom";
+import { data, Link, useLocation, useParams } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import API from "../../api";
 
-function AppHeader() {
+function AppHeader({ userData }) {
+  console.log("userData", userData);
   useEffect(() => {
     const fetchUserName = async function () {
       const response = await API.get(`/user_budget`);
@@ -18,8 +19,13 @@ function AppHeader() {
     };
 
     fetchUserName();
-  }, []);
+  }, [userData]);
   const [userName, setUserName] = useState();
+
+  const onhandleLogout = () => {
+    localStorage.clear();
+    setUserName("");
+  };
   const items = [
     {
       key: "1",
@@ -31,7 +37,11 @@ function AppHeader() {
     },
     {
       key: "2",
-      label: userName?.length ? <Link to="/login">Logout</Link> : null,
+      label: userName?.length ? (
+        <Link to="/login" onClick={onhandleLogout}>
+          Logout
+        </Link>
+      ) : null,
     },
   ];
 
@@ -54,7 +64,7 @@ function AppHeader() {
           alt="Company Logo"
           style={{ height: "40px", marginRight: "10px" }}
         />
-        <Typography.Title level={3}>Budget Tracker</Typography.Title>
+        <Typography.Title level={4}>Budget Tracker</Typography.Title>
       </Space>
       <Flex>
         <Dropdown
