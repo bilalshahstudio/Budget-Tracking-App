@@ -28,19 +28,8 @@ function Login() {
   };
 
   return (
-    <StyledLogin
-    // style={{ alignItems: "center", backgroundColor: "#E2E7F1" }}
-    >
-      <StyledLoginContainer
-        align="center"
-        // style={{
-        //   marginBlock: "50px",
-        //   backgroundColor: "#fff",
-        //   padding: "60px",
-        //   borderRadius: "8px",
-        //   boxShadow: "0 4px 10px 4px",
-        // }}
-      >
+    <StyledLogin>
+      <StyledLoginContainer align="center">
         <Form
           // name="basic"
           name="login"

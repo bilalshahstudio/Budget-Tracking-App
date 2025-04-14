@@ -6,10 +6,10 @@ import API from "../../api";
 import StyledButton from "../../components/ButtonStyles/Button";
 
 function AddModal({ data, open, setOpen, isEdit, refreshData }) {
-  console.log(`data:${data}`, `is edit:${isEdit}`, open);
+  console.log(`data:${data._id}`, `is edit:${isEdit}`, open);
 
-  console.log("data", data);
   const handleSubmit = async (values) => {
+    console.log(values);
     const payload = {
       ...values,
       date: values.date?.toISOString(),
@@ -20,7 +20,7 @@ function AddModal({ data, open, setOpen, isEdit, refreshData }) {
     const result = response?.data;
 
     if (response.status === 200) {
-      console.log("Budget added successfully:", result);
+      console.log("Budget added successfully", result);
       setOpen(false);
 
       refreshData();

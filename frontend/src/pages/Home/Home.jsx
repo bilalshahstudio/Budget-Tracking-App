@@ -27,6 +27,8 @@ function Home() {
       setData(response?.data?.budgets);
     } else {
       console.log("Error:", result.error);
+      // navigate("/login");
+      // fetchData();
     }
   };
   useEffect(() => {

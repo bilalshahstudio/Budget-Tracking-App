@@ -43,28 +43,58 @@ router.get("/user_budget", authenticateToken, async (req, res) => {
 router.post("/user_budget", authenticateToken, async (req, res) => {
   try {
     const id = req.user.userId;
-    //const singleUserData = await User.findById({ _id: id });
 
-    const { budgetName, price, date } = req.body;
+    const { _id, budgetName, price, date } = req.body;
 
-    const addBudget = new Budget({
-      userId: id,
-      budgetName,
-      price,
-      date,
-    });
+    if (_id) {
+      const existingBudget = await Budget.findOne({ _id, userId });
 
-    const newBudget = await addBudget.save();
+      if (!existingBudget) {
+        return res
+          .status(404)
+          .json({ message: "Budget not found or unauthorized" });
+      }
 
-    await User.findByIdAndUpdate(
-      id,
-      { $push: { budgets: newBudget._id } }, // Push budget ID into user's budgets array
-      { new: true }
-    );
+      const updatedBudget = User.findByIdAndUpdate(
+        id,
+        { $push: { budgets: newBudget._id } }, // Push budget ID into user's budgets array
+        { new: true }
+      );
+      return res.status(200).json({
+        message: "Budget updated successfully",
+        budget: updatedBudget,
+      });
+    } else {
+      const addBudget = new Budget({
+        userId: id,
+        budgetName,
+        price,
+        date,
+      });
+      const newBudget = await addBudget.save();
+      return res
+        .status(200)
+        .json({ message: "Budget data saved successfully", budget: newBudget });
+    }
 
-    res
-      .status(200)
-      .json({ message: "Budget data saved successfully", budget: newBudget });
+    // const singleUserData = await User.findById({ _id: id });
+
+    // const addBudget = new Budget({
+    //   userId: id,
+    //   budgetName,
+    //   price,
+    //   date,
+    // });
+
+    // await User.findByIdAndUpdate(
+    //   id,
+    //   { $push: { budgets: newBudget._id } }, // Push budget ID into user's budgets array
+    //   { new: true }
+    // );
+
+    // res
+    //   .status(200)
+    //   .json({ message: "Budget data saved successfully", budget: newBudget });
   } catch (error) {
     console.log(error);
 

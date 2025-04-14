@@ -44,38 +44,10 @@ const Signup = () => {
   };
 
   return (
-    <StyledSignupLayout
-    //  style={{ alignItems: "center", backgroundColor: "#dbdbdb" }}
-    >
-      <StyledSignupContainer
-      // style={{
-      //   marginBlock: "50px",
-      //   backgroundColor: "#fff",
-      //   padding: "18px",
-      //   borderRadius: "8px",
-      //   boxShadow: "0 4px 10px 4px",
-      //   alignItems: "center",
-      // }}
-      >
-        <SignupImageContainer
-        // className="side-image-container"
-        // style={{
-        //   // paddingInline: "24px",
-        //   // backgroundColor: "yellow",
-        //   backgroundImage: `url(${signupImage})`,
-        //   backgroundSize: "cover",
-        //   borderRadius: "8px",
-        //   margin: "14px",
-        //   width: "210px",
-        //   height: "400px",
-        //   justifyContent: "center",
-        //   padding: "18px",
-        // }}
-        >
-          <Typography.Title
-            level={3}
-            // style={{ color: "#fff", margin: "1px" }}
-          >
+    <StyledSignupLayout>
+      <StyledSignupContainer>
+        <SignupImageContainer>
+          <Typography.Title level={3}>
             Start your Journey With Us
           </Typography.Title>
         </SignupImageContainer>

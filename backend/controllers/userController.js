@@ -19,10 +19,10 @@ const loginController = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id.toString() },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
+      process.env.JWT_SECRET
+      // {
+      //   expiresIn: "1h",
+      // }
     );
 
     res.status(200).json({ token, success: true, user });
