@@ -4,32 +4,36 @@ import React, { useEffect, useState } from "react";
 import { data, Link, useLocation, useParams } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import API from "../../api";
+import { useData } from "../../context/DataContext";
 
-function AppHeader({ userData }) {
-  console.log("userData", userData);
-  useEffect(() => {
-    const fetchUserName = async function () {
-      const response = await API.get(`/user_budget`);
+function AppHeader() {
+  const { data } = useData();
+  console.log("Data", data);
+  // useEffect(() => {
+  //   const fetchUserName = async function () {
+  //     const response = await API.get(`/user_budget`);
 
-      if (response.status === 200) {
-        setUserName(response?.data?.fName);
-      } else {
-        console.log("Error:", result.error);
-      }
-    };
+  //     if (response.status === 200) {
+  //       setUserName(response?.data?.fName);
+  //     } else {
+  //       console.log("Error:", result.error);
+  //     }
+  //   };
 
-    fetchUserName();
-  }, [userData]);
-  const [userName, setUserName] = useState();
+  //   fetchUserName();
+  // }, [userData]);
+  // const [userName, setUserName] = useState();
 
-  const onhandleLogout = () => {
+  const handleLogout = () => {
     localStorage.clear();
-    setUserName("");
+    // setUserName("");
   };
   const items = [
     {
       key: "1",
-      label: userName?.length ? userName : <Link to="/login">Login</Link>,
+      label:
+        // userName?.length ? userName :
+        data ? data?.fName : <Link to="/login">Login</Link>,
       // disabled: true,
     },
     {
@@ -37,11 +41,17 @@ function AppHeader({ userData }) {
     },
     {
       key: "2",
-      label: userName?.length ? (
-        <Link to="/login" onClick={onhandleLogout}>
+      label: (
+        // userName?.length ? (
+
+        // data && (
+        <Link to="/login" onClick={handleLogout}>
           Logout
         </Link>
-      ) : null,
+      ),
+      // ),
+
+      // ) : null,
     },
   ];
 
