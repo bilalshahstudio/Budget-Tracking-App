@@ -120,7 +120,7 @@ function Home() {
       // justify="center"
       vertical
     >
-      <Flex justify="space-between" className="header-items-container" wrap>
+      <Flex justify="space-between" wrap>
         <Space wrap>
           <DatePicker
             style={{ padding: "13px" }}

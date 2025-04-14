@@ -59,8 +59,8 @@ function Analytics() {
       ...item,
       date:
         activeTab === "1M"
-          ? format(parseISO(item.date), "MM/dd") // 📅 Day-wise for 1M
-          : format(parseISO(item.date), "yy-MM"), // 🗓️ Month-wise for 6M/12M
+          ? format(parseISO(item.date), "MM/dd") // Day wise for 1M
+          : format(parseISO(item.date), "yy-MM"), // Month wise for 6M/12M
     }));
 
   // Aggregate data by month
@@ -80,18 +80,11 @@ function Analytics() {
       <Content
         className="chart-container"
         style={{
-          // justifyItems: "center",
-          // marginTop: "2%",
-          // marginInline: "4%",
           padding: "4%",
           backgroundColor: "#fff",
         }}
       >
-        <Flex
-          // justify="space-between"
-          align="center"
-          // style={{ marginBottom: "1rem" }}
-        >
+        <Flex align="center">
           <Typography.Title level={3}>Budget Analytics</Typography.Title>
         </Flex>
         <Tabs
