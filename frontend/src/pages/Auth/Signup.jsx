@@ -7,6 +7,11 @@ import { PasswordStyled } from "../../components/PasswordStyles/password.styles"
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import signupImage from "../../assets/1.jpg";
 import API from "../../api";
+import {
+  SignupImageContainer,
+  StyledSignupContainer,
+  StyledSignupLayout,
+} from "./signup.styles";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -39,38 +44,42 @@ const Signup = () => {
   };
 
   return (
-    <Layout style={{ alignItems: "center", backgroundColor: "#dbdbdb" }}>
-      <Flex
-        className="signup-container"
-        style={{
-          marginBlock: "50px",
-          backgroundColor: "#fff",
-          padding: "18px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 10px 4px",
-          alignItems: "center",
-        }}
+    <StyledSignupLayout
+    //  style={{ alignItems: "center", backgroundColor: "#dbdbdb" }}
+    >
+      <StyledSignupContainer
+      // style={{
+      //   marginBlock: "50px",
+      //   backgroundColor: "#fff",
+      //   padding: "18px",
+      //   borderRadius: "8px",
+      //   boxShadow: "0 4px 10px 4px",
+      //   alignItems: "center",
+      // }}
       >
-        <Flex
-          className="side-image-container"
-          style={{
-            // paddingInline: "24px",
-            // backgroundColor: "yellow",
-            backgroundImage: `url(${signupImage})`,
-            backgroundSize: "cover",
-            borderRadius: "8px",
-            margin: "14px",
-            width: "210px",
-            height: "400px",
-            justifyContent: "center",
-            padding: "18px",
-          }}
+        <SignupImageContainer
+        // className="side-image-container"
+        // style={{
+        //   // paddingInline: "24px",
+        //   // backgroundColor: "yellow",
+        //   backgroundImage: `url(${signupImage})`,
+        //   backgroundSize: "cover",
+        //   borderRadius: "8px",
+        //   margin: "14px",
+        //   width: "210px",
+        //   height: "400px",
+        //   justifyContent: "center",
+        //   padding: "18px",
+        // }}
         >
-          <Typography.Title level={3} style={{ color: "#fff", margin: "1px" }}>
+          <Typography.Title
+            level={3}
+            // style={{ color: "#fff", margin: "1px" }}
+          >
             Start your Journey With Us
           </Typography.Title>
-        </Flex>
-        <Flex className="form-container">
+        </SignupImageContainer>
+        <Flex>
           <Form
             // name="basic"
             name="signup"
@@ -181,8 +190,8 @@ const Signup = () => {
             {/* </Space> */}
           </Form>
         </Flex>
-      </Flex>
-    </Layout>
+      </StyledSignupContainer>
+    </StyledSignupLayout>
   );
 };
 

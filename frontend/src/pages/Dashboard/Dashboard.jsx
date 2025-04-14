@@ -45,18 +45,6 @@ const Dashboard = () => {
           theme="light"
           style={{ paddingTop: 20 }}
         >
-          {/* <Menu
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            style={{ borderRight: 0 }}
-          >
-            {menuItems.map((item) => (
-              <Menu.Item key={item.key} icon={item.icon}>
-                <Link to={item.path}>{item.label}</Link>
-              </Menu.Item>
-            ))}
-          </Menu> */}
-          {/* <div style={{ width: 256 }}> */}
           <Button
             type="default"
             onClick={toggleCollapsed}

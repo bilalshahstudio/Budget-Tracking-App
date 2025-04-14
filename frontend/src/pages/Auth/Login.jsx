@@ -5,6 +5,7 @@ import { PasswordStyled } from "../../components/PasswordStyles/password.styles"
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import API from "../../api";
 import { useData } from "../../context/DataContext";
+import { StyledLogin, StyledLoginContainer } from "./login.styles";
 
 function Login() {
   const navigate = useNavigate();
@@ -27,17 +28,18 @@ function Login() {
   };
 
   return (
-    <Layout style={{ alignItems: "center", backgroundColor: "#E2E7F1" }}>
-      <Flex
-        className="content-container"
+    <StyledLogin
+    // style={{ alignItems: "center", backgroundColor: "#E2E7F1" }}
+    >
+      <StyledLoginContainer
         align="center"
-        style={{
-          marginBlock: "50px",
-          backgroundColor: "#fff",
-          padding: "60px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 10px 4px",
-        }}
+        // style={{
+        //   marginBlock: "50px",
+        //   backgroundColor: "#fff",
+        //   padding: "60px",
+        //   borderRadius: "8px",
+        //   boxShadow: "0 4px 10px 4px",
+        // }}
       >
         <Form
           // name="basic"
@@ -105,8 +107,8 @@ function Login() {
             Don't have an account? <Link to="/signup">SignUp</Link>
           </Form.Item>
         </Form>
-      </Flex>
-    </Layout>
+      </StyledLoginContainer>
+    </StyledLogin>
   );
 }
 
