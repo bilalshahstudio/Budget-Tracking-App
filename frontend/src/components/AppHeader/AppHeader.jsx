@@ -1,59 +1,33 @@
 import { Avatar, Dropdown, Flex, Space, Typography } from "antd";
 import budgetLogo from "../../assets/pie.png";
-import React, { useEffect, useState } from "react";
-import { data, Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import API from "../../api";
 import { useData } from "../../context/DataContext";
 
 function AppHeader() {
-  const { data } = useData();
-  console.log("Data", data);
-  // useEffect(() => {
-  //   const fetchUserName = async function () {
-  //     const response = await API.get(`/user_budget`);
+  const { data, handleLogout } = useData();
+  console.log("Data", data.fName);
 
-  //     if (response.status === 200) {
-  //       setUserName(response?.data?.fName);
-  //     } else {
-  //       console.log("Error:", result.error);
-  //     }
-  //   };
-
-  //   fetchUserName();
-  // }, [userData]);
-  // const [userName, setUserName] = useState();
-
-  const handleLogout = () => {
-    localStorage.clear();
-    // setUserName("");
-  };
-  const items = [
-    {
-      key: "1",
-      label:
-        // userName?.length ? userName :
-        data ? data?.fName : <Link to="/login">Login</Link>,
-      // disabled: true,
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "2",
-      label: (
-        // userName?.length ? (
-
-        // data && (
-        <Link to="/login" onClick={handleLogout}>
-          Logout
-        </Link>
-      ),
-      // ),
-
-      // ) : null,
-    },
-  ];
+  const items = data?.fName
+    ? [
+        {
+          key: "1",
+          label: <span style={{ fontWeight: 500 }}>{data.fName}</span>,
+          disabled: true,
+        },
+        {
+          type: "divider",
+        },
+        {
+          key: "2",
+          label: (
+            <Link to="/login" onClick={handleLogout}>
+              Logout
+            </Link>
+          ),
+        },
+      ]
+    : [];
 
   return (
     <Flex

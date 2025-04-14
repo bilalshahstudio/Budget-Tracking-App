@@ -1,32 +1,19 @@
-import axios from "axios";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import {
-  Button,
-  Checkbox,
-  Flex,
-  Form,
-  Input,
-  Layout,
-  Space,
-  Typography,
-} from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { Flex, Form, Layout, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import API from "../../api";
+import { useData } from "../../context/DataContext";
 
-function Login({ setUserData }) {
+function Login() {
   const navigate = useNavigate();
+  const { fetchData } = useData();
   const validateMessages = {
     required: "${label} is required!",
     types: {
       email: "${label} is not a valid email!",
-      // number: "${label} is not a valid number!",
     },
-    // number: {
-    //   range: "${label} must be between ${min} and ${max}",
-    // },
   };
 
   const handleSubmit = async (values) => {
@@ -34,7 +21,7 @@ function Login({ setUserData }) {
 
     if (response.status === 200) {
       localStorage.setItem("token", response?.data?.token);
-      setUserData(response?.data);
+      await fetchData();
       navigate("/");
     }
   };
@@ -72,7 +59,6 @@ function Login({ setUserData }) {
           //   }
           // }
           onFinish={handleSubmit}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
           validateMessages={validateMessages}
         >
@@ -108,20 +94,12 @@ function Login({ setUserData }) {
 
           <Form.Item>
             <Flex justify="space-between" align="center">
-              {/* <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item> */}
               <Link to="/signup">Forgot password</Link>
             </Flex>
           </Form.Item>
 
           <Form.Item>
-            <ButtonStyled
-              block
-              type="primary"
-              htmlType="submit"
-              // onClick={() => navigate("/")}
-            >
+            <ButtonStyled block type="primary" htmlType="submit">
               Log in
             </ButtonStyled>
             Don't have an account? <Link to="/signup">SignUp</Link>

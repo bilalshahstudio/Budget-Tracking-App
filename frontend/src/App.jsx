@@ -1,15 +1,7 @@
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Login from "./pages/Auth/Login";
-// import Signup from "./pages/Auth/Signup";
-// import Dashboard from "./pages/Dashboard/Dashboard";
-// import Home from "./pages/Home/Home";
-// import Auth from "./components/Auth/Auth";
 import { Flex, Layout, Spin } from "antd";
 import { DataProvider } from "./context/DataContext";
-// import { DataProvider } from "./context/DataContext";
-// import AppHeader from "./components/AppHeader/AppHeader";
-// import Analytics from "./pages/Analytics/Analytics";
 
 const Auth = lazy(() => import("./components/Auth/Auth"));
 const Login = lazy(() => import("./pages/Auth/Login"));
@@ -20,7 +12,6 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 
 function App() {
-  const [userData, setUserData] = useState("");
   return (
     <Router>
       <DataProvider>
@@ -33,15 +24,12 @@ function App() {
         >
           <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
             {/* Common Header */}
-            <AppHeader userData={userData} />
+            <AppHeader />
             <Routes>
-              <Route path="/" element={<Login setUserData={setUserData} />} />
+              <Route path="/" element={<Login />} />
 
               {/* Authentication Pages */}
-              <Route
-                path="/login"
-                element={<Login setUserData={setUserData} />}
-              />
+              <Route path="/login" element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />
               {/* Protected Routes */}
               <Route

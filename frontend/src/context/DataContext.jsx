@@ -1,25 +1,33 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+const DataContext = createContext();
 import API from "../api";
 
-const DataContext = createContext();
-
 export const DataProvider = ({ children }) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(data);
+  console.log(data.fName);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setData({});
+  };
+
+  const fetchData = async function () {
+    const response = await API.get(`/user_budget`);
+    if (response.status === 200) {
+      setData(response?.data);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async function () {
-      const response = await API.get(`/user_budget`);
-      if (response.status === 200) {
-        setData(response?.data);
-      }
-    };
     fetchData();
   }, []);
 
-  const contextValue = useMemo(() => ({ data, loading }), [data, loading]);
+  const contextValue = useMemo(
+    () => ({ data, fetchData, handleLogout, loading }),
+    [data, loading, handleLogout]
+  );
 
   return (
     <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>
