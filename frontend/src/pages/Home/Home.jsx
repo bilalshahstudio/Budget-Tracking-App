@@ -155,7 +155,7 @@ function Home() {
       <Flex justify="space-between" wrap gap="small">
         <Space wrap>
           <DatePicker
-            style={{ padding: "13px" }}
+            style={{ padding: "8px" }}
             onChange={(date) => setSelectedDate(date)}
           />
           <StyledButton type="primary" onClick={handleFilter}>

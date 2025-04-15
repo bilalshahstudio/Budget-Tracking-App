@@ -74,8 +74,7 @@ const Dashboard = () => {
           <Content
             style={{
               background: "#fff",
-              padding: 20,
-              // paddingTop: 60,
+              padding: "20px 8px 0px 8px",
               minHeight: 280,
               overflowX: "auto",
             }}
