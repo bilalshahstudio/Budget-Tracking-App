@@ -6,7 +6,7 @@ import API from "../../api";
 import StyledButton from "../../components/ButtonStyles/Button";
 
 function AddModal({ data, open, setOpen, isEdit, refreshData }) {
-  console.log(`data:${data._id}`, `is edit:${isEdit}`, open);
+  console.log(`data:${data}`, `is edit:${isEdit}`, open);
 
   const handleSubmit = async (values) => {
     console.log(values);
@@ -15,8 +15,14 @@ function AddModal({ data, open, setOpen, isEdit, refreshData }) {
       date: values.date?.toISOString(),
     };
 
-    const response = await API.post("/user_budget", payload);
+    //in case of edit
 
+    if (isEdit && data._id) {
+      payload._id = data._id;
+    }
+
+    const response = await API.post("/user_budget", payload);
+    console.log(response);
     const result = response?.data;
 
     if (response.status === 200) {

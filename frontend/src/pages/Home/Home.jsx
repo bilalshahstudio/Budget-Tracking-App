@@ -35,10 +35,10 @@ function Home() {
     fetchData();
   }, []);
 
-  const showModal = (item, isEdit) => {
-    console.log(item);
+  const showModal = (record, isEdit) => {
+    console.log(record);
     setOpen(true);
-    setSelectedItem(item);
+    setSelectedItem(record);
     setIsEdit(isEdit);
   };
 
