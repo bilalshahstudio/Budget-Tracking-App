@@ -128,9 +128,11 @@ function Home() {
             style={{ padding: "13px" }}
             onChange={(date) => setSelectedDate(date)}
           />
-          <StyledButton onClick={handleFilter}>Filter Records</StyledButton>
+          <StyledButton type="primary" onClick={handleFilter}>
+            Filter Records
+          </StyledButton>
         </Space>
-        <StyledButton onClick={() => showModal(null, false)}>
+        <StyledButton type="primary" onClick={() => showModal(null, false)}>
           Add Budget
         </StyledButton>
         <AddModal
