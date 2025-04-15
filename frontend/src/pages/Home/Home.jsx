@@ -3,8 +3,11 @@ import { format } from "date-fns";
 import API from "../../api";
 import {
   Button as AntBtn,
+  Button,
   DatePicker,
+  Dropdown,
   Flex,
+  Grid,
   Space,
   Table,
   Typography,
@@ -13,6 +16,9 @@ import {
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import AddModal from "./AddModal";
 import StyledButton from "../../components/ButtonStyles/Button";
+import BudgetCard from "../../components/Card/BudgetCard";
+
+const { useBreakpoint } = Grid;
 
 function Home() {
   const [data, setData] = useState([]);
@@ -20,6 +26,9 @@ function Home() {
   const [selectedItem, setSelectedItem] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const mobileView = useBreakpoint();
+  console.log(data);
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -129,6 +138,7 @@ function Home() {
             onClick={() => handleDelete(record._id)}
             type="link"
             icon={<DeleteFilled />}
+            danger
           >
             Delete
           </AntBtn>
@@ -142,7 +152,7 @@ function Home() {
       vertical
     >
       {contextHolder}
-      <Flex justify="space-between" wrap>
+      <Flex justify="space-between" wrap gap="small">
         <Space wrap>
           <DatePicker
             style={{ padding: "13px" }}
@@ -165,16 +175,75 @@ function Home() {
           showNotification={openNotification}
         />
       </Flex>
-      <Table
-        style={{
-          marginTop: "8px",
-        }}
-        rowKey="_id"
-        scroll={{ x: "max-content" }}
-        dataSource={data?.length ? data : null}
-        columns={columns}
-        size="small"
-      />
+      {mobileView.xs ? (
+        <Flex vertical gap="small" style={{ marginTop: "16px" }}>
+          {data?.map((item) => {
+            const items = [
+              {
+                key: "1",
+                label: (
+                  <Button
+                    onClick={() => showModal(item, true)}
+                    type="link"
+                    icon={<EditFilled />}
+                  >
+                    Edit
+                  </Button>
+                ),
+              },
+              {
+                key: "2",
+                label: (
+                  <Button
+                    onClick={() => handleDelete(item._id)}
+                    type="link"
+                    icon={<DeleteFilled />}
+                    danger
+                  >
+                    Delete
+                  </Button>
+                ),
+              },
+            ];
+            return (
+              <BudgetCard
+                key={item._id}
+                title={item.budgetName}
+                // extra={<a href="#">more</a>}
+                extra={<Dropdown menu={{ items }}>More</Dropdown>}
+              >
+                <Flex vertical>
+                  <Space>
+                    <Typography.Text strong>Name :</Typography.Text>
+                    <Typography.Text>{item.budgetName}</Typography.Text>
+                  </Space>
+                  <Space>
+                    <Typography.Text strong>Price :</Typography.Text>
+                    <Typography.Text>{item.price}</Typography.Text>
+                  </Space>
+                  <Space>
+                    <Typography.Text strong>Date :</Typography.Text>
+                    <Typography.Text>
+                      {format(new Date(item.date), "dd-MM-yyyy")}
+                    </Typography.Text>
+                  </Space>
+                </Flex>
+              </BudgetCard>
+            );
+          })}
+        </Flex>
+      ) : (
+        <Table
+          style={{
+            marginTop: "8px",
+          }}
+          rowKey="_id"
+          scroll={{ x: "max-content" }}
+          dataSource={data?.length ? data : null}
+          columns={columns}
+          size="small"
+        />
+      )}
     </Flex>
   );
 }

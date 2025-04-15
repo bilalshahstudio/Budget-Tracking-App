@@ -84,8 +84,11 @@ function Analytics() {
           backgroundColor: "#fff",
         }}
       >
-        <Flex align="center">
+        <Flex align="center" gap={8} vertical wrap>
           <Typography.Title level={3}>Budget Analytics</Typography.Title>
+          <Typography.Text level={3}>
+            Budget Limit: {budgetLimit}
+          </Typography.Text>
         </Flex>
         <Tabs
           defaultActiveKey="1M"
