@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
+import API from "../../api";
 import {
   Button as AntBtn,
   DatePicker,
@@ -5,12 +8,10 @@ import {
   Space,
   Table,
   Typography,
+  notification,
 } from "antd";
-import React, { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import AddModal from "./AddModal";
-import API from "../../api";
-import { format } from "date-fns";
 import StyledButton from "../../components/ButtonStyles/Button";
 
 function Home() {
@@ -19,6 +20,18 @@ function Home() {
   const [selectedItem, setSelectedItem] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (type, message, description) => {
+    console.log(message);
+    api[type]({
+      message,
+      description,
+      placement: "topRight",
+      // zIndex: 9999,
+    });
+  };
 
   const fetchData = async function () {
     const response = await API.get(`/user_budget`);
@@ -61,11 +74,17 @@ function Home() {
 
       if (response.status === 200) {
         console.log("Budget deleted successfully:", response.data);
+        openNotification("success", "Deleted", "Budget deleted successfully.");
 
         // Update state to remove the deleted item from the list
         setData((prevData) => prevData.filter((item) => item._id !== budgetId));
       } else {
         console.log(response.data.error);
+        openNotification(
+          "error",
+          "Error",
+          "An error occurred while deleting the budget."
+        );
       }
     } catch (error) {
       console.error("Error deleting budget:", error);
@@ -122,6 +141,7 @@ function Home() {
       // justify="center"
       vertical
     >
+      {contextHolder}
       <Flex justify="space-between" wrap>
         <Space wrap>
           <DatePicker
@@ -135,12 +155,14 @@ function Home() {
         <StyledButton type="primary" onClick={() => showModal(null, false)}>
           Add Budget
         </StyledButton>
+
         <AddModal
           data={selectedItem}
           open={open}
           isEdit={isEdit}
           setOpen={setOpen}
           refreshData={fetchData}
+          showNotification={openNotification}
         />
       </Flex>
       <Table

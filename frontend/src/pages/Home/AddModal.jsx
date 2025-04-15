@@ -5,7 +5,14 @@ import dayjs from "dayjs";
 import API from "../../api";
 import StyledButton from "../../components/ButtonStyles/Button";
 
-function AddModal({ data, open, setOpen, isEdit, refreshData }) {
+function AddModal({
+  data,
+  open,
+  setOpen,
+  isEdit,
+  refreshData,
+  showNotification,
+}) {
   console.log(`data:${data}`, `is edit:${isEdit}`, open);
 
   const handleSubmit = async (values) => {
@@ -27,11 +34,23 @@ function AddModal({ data, open, setOpen, isEdit, refreshData }) {
 
     if (response.status === 200) {
       console.log("Budget added successfully", result);
-      setOpen(false);
+      showNotification(
+        "success",
+        isEdit ? "Budget Updated" : "Budget Added",
+        isEdit
+          ? "The budget item has been updated successfully."
+          : "A new budget item has been added."
+      );
 
+      setOpen(false);
       refreshData();
     } else {
       console.log("Error:", result.error);
+      showNotification(
+        "error",
+        "Error",
+        "An error occurred while saving the budget."
+      );
     }
   };
 
