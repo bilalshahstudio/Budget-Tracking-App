@@ -20,6 +20,9 @@ export const StyledSignupContainer = styled(Flex)`
   flex-wrap: wrap;
   @media (max-width: 600px) {
     flex-direction: column;
+    margin-block: 20px;
+    padding: 8px;
+    width: 70%;
   }
 `;
 

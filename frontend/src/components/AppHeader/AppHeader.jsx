@@ -1,12 +1,24 @@
-import { Avatar, Dropdown, Flex, Space, Typography } from "antd";
+import { Avatar, Button, Dropdown, Flex, Grid, Space, Typography } from "antd";
 import budgetLogo from "../../assets/pie.png";
 import { Link } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useData } from "../../context/DataContext";
 
+// const { useBreakpoint } = Grid;
+
 function AppHeader() {
-  const { data, handleLogout } = useData();
+  const { data, handleLogout, collapsed, setCollapsed, mobileView } = useData();
+
+  // const mobileView = useBreakpoint();
   console.log("Data", data.fName);
+
+  const toggleCollapsed = () => {
+    setCollapsed((prev) => !prev);
+  };
 
   const items = data?.fName
     ? [
@@ -42,14 +54,22 @@ function AppHeader() {
         boxShadow: "0px 0px 5px 0px",
       }}
     >
-      <Space align="center" wrap>
-        <img
-          src={budgetLogo}
-          alt="Company Logo"
-          style={{ height: "40px", marginRight: "10px" }}
-        />
+      <Flex align="center" gap="small" wrap>
+        {mobileView.xs && data.fName && (
+          <Button
+            type="default"
+            onClick={toggleCollapsed}
+
+            // style={{ marginBottom: 16, marginLeft: 16 }}
+          >
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </Button>
+        )}
+
+        <img src={budgetLogo} alt="Company Logo" style={{ width: "40px" }} />
+
         <Typography.Title level={4}>Budget Tracker</Typography.Title>
-      </Space>
+      </Flex>
       <Flex>
         <Dropdown
           menu={{

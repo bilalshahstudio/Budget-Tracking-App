@@ -54,7 +54,7 @@ function Login() {
           validateMessages={validateMessages}
         >
           <Form.Item>
-            <Typography.Title>Welcome Back!</Typography.Title>
+            <Typography.Title level={4}>Welcome Back!</Typography.Title>
           </Form.Item>
           <Form.Item
             name="email"

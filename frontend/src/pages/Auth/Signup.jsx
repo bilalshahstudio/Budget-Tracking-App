@@ -12,8 +12,10 @@ import {
   StyledSignupContainer,
   StyledSignupLayout,
 } from "./signup.styles";
+import { useData } from "../../context/DataContext";
 
 const Signup = () => {
+  const { mobileView } = useData();
   const navigate = useNavigate();
   // const { signup } = userData();
   const validateMessages = {
@@ -46,11 +48,13 @@ const Signup = () => {
   return (
     <StyledSignupLayout>
       <StyledSignupContainer>
-        <SignupImageContainer>
-          <Typography.Title level={3}>
-            Start your Journey With Us
-          </Typography.Title>
-        </SignupImageContainer>
+        {!mobileView.xs && (
+          <SignupImageContainer>
+            <Typography.Title level={3}>
+              Start your Journey With Us
+            </Typography.Title>
+          </SignupImageContainer>
+        )}
         <Flex>
           <Form
             // name="basic"

@@ -1,12 +1,19 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 const DataContext = createContext();
 import API from "../api";
+import { Grid } from "antd";
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
+
+  const { useBreakpoint } = Grid;
+
+  const mobileView = useBreakpoint();
 
   console.log(data.fName);
+  console.log("collapsed", collapsed);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -25,8 +32,16 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ data, fetchData, handleLogout, loading }),
-    [data, loading, handleLogout]
+    () => ({
+      data,
+      fetchData,
+      handleLogout,
+      loading,
+      collapsed,
+      setCollapsed,
+      mobileView,
+    }),
+    [data, loading, handleLogout, setCollapsed, mobileView]
   );
 
   return (

@@ -17,8 +17,9 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import AddModal from "./AddModal";
 import StyledButton from "../../components/ButtonStyles/Button";
 import BudgetCard from "../../components/Card/BudgetCard";
+import { useData } from "../../context/DataContext";
 
-const { useBreakpoint } = Grid;
+// const { useBreakpoint } = Grid;
 
 function Home() {
   const [data, setData] = useState([]);
@@ -27,7 +28,8 @@ function Home() {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const mobileView = useBreakpoint();
+  const { mobileView } = useData();
+  // const mobileView = useBreakpoint();
   console.log(data);
 
   const [api, contextHolder] = notification.useNotification();
@@ -49,8 +51,6 @@ function Home() {
       setData(response?.data?.budgets);
     } else {
       console.log("Error:", result.error);
-      // navigate("/login");
-      // fetchData();
     }
   };
   useEffect(() => {
@@ -155,14 +155,31 @@ function Home() {
       <Flex justify="space-between" wrap gap="small">
         <Space wrap>
           <DatePicker
-            style={{ padding: "8px" }}
+            style={{
+              paddingBlock: `${mobileView.xs ? "6px" : "8px"}`,
+              width: `${mobileView.xs ? "100px" : "140px"}`,
+            }}
             onChange={(date) => setSelectedDate(date)}
           />
-          <StyledButton type="primary" onClick={handleFilter}>
+          <StyledButton
+            style={{
+              width: `${mobileView.xs ? "100px" : "150px"}`,
+              paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
+            }}
+            type="primary"
+            onClick={handleFilter}
+          >
             Filter Records
           </StyledButton>
         </Space>
-        <StyledButton type="primary" onClick={() => showModal(null, false)}>
+        <StyledButton
+          style={{
+            width: `${mobileView.xs ? "100px" : "150px"}`,
+            paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
+          }}
+          type="primary"
+          onClick={() => showModal(null, false)}
+        >
           Add Budget
         </StyledButton>
 
@@ -210,7 +227,7 @@ function Home() {
                 key={item._id}
                 title={item.budgetName}
                 // extra={<a href="#">more</a>}
-                extra={<Dropdown menu={{ items }}>More</Dropdown>}
+                extra={<Dropdown menu={{ items }}>More...</Dropdown>}
               >
                 <Flex vertical>
                   <Space>

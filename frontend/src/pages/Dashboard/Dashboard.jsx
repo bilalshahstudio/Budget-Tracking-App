@@ -1,4 +1,4 @@
-import { Button, Layout, Menu } from "antd";
+import { Button, Grid, Layout, Menu } from "antd";
 import {
   DollarCircleOutlined,
   MenuFoldOutlined,
@@ -8,14 +8,15 @@ import {
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { Link, Outlet } from "react-router-dom";
-import { DataProvider } from "../../context/DataContext";
-import { useState } from "react";
+import { DataProvider, useData } from "../../context/DataContext";
+
+// const { useBreakpoint } = Grid;
 
 const Dashboard = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+  const { collapsed, setCollapsed, mobileView } = useData();
+
+  // const mobileView = useBreakpoint();
+  console.log(collapsed);
   const menuItems = [
     {
       key: "1",
@@ -30,44 +31,40 @@ const Dashboard = () => {
       icon: <DollarCircleOutlined />,
     },
   ];
+  console.log("trueeeee", (mobileView.xs && collapsed) || !mobileView.xs);
+  console.log("mobileView with not", !mobileView.xs);
+  console.log("mobileView without not", mobileView.xs);
+
+  console.log("collapsed", collapsed);
+
   return (
     <DataProvider>
-      <Layout
-      // style={{ minHeight: "100vh", flexWrap: "wrap" }}
-      >
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-          breakpoint="md"
-          // collapsedWidth="0"
-          // width={200}
-          theme="light"
-          style={{ paddingTop: 20 }}
-        >
-          <Button
-            type="default"
-            onClick={toggleCollapsed}
-            style={{ marginBottom: 16, marginLeft: 16 }}
-          >
-            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          </Button>
-          <Menu
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            mode="inline"
+      <Layout>
+        {((mobileView.xs && collapsed) || !mobileView.xs) && (
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            // onCollapse={!mobileView.xs && setCollapsed(collapsed)}
+            breakpoint="md"
             theme="light"
-            inlineCollapsed={collapsed}
-            // items={items}
+            style={{ paddingTop: 20 }}
           >
-            {menuItems.map((item) => (
-              <Menu.Item key={item.key} icon={item.icon}>
-                <Link to={item.path}>{item.label}</Link>
-              </Menu.Item>
-            ))}
-          </Menu>
-          {/* </div> */}
-        </Sider>
+            <Menu
+              defaultSelectedKeys={["1"]}
+              defaultOpenKeys={["sub1"]}
+              mode="inline"
+              theme="light"
+              inlineCollapsed={collapsed}
+            >
+              {menuItems.map((item) => (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  <Link to={item.path}>{item.label}</Link>
+                </Menu.Item>
+              ))}
+            </Menu>
+            {/* </div> */}
+          </Sider>
+        )}
 
         {/* Main Content */}
         <Layout>

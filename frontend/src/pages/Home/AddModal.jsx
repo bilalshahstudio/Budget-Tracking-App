@@ -13,7 +13,7 @@ function AddModal({
   refreshData,
   showNotification,
 }) {
-  console.log(`data:${data}`, `is edit:${isEdit}`, open);
+  console.log(`data:${data}`, `is edit:${isEdit}`, `modal open:${open}`);
 
   const handleSubmit = async (values) => {
     console.log(values);
