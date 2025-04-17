@@ -8,16 +8,24 @@ import {
   Dropdown,
   Flex,
   Grid,
+  Popconfirm,
   Space,
   Table,
   Typography,
   notification,
 } from "antd";
-import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import {
+  DeleteFilled,
+  EditFilled,
+  FilterOutlined,
+  MenuOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import AddModal from "./AddModal";
 import StyledButton from "../../components/ButtonStyles/Button";
 import BudgetCard from "../../components/Card/BudgetCard";
 import { useData } from "../../context/DataContext";
+import { Link } from "react-router-dom";
 
 // const { useBreakpoint } = Grid;
 
@@ -127,21 +135,24 @@ function Home() {
       align: "center",
       render: (_, record) => (
         <>
-          <AntBtn
+          <Button
             onClick={() => showModal(record, true)}
             type="link"
             icon={<EditFilled />}
           >
             Edit
-          </AntBtn>
-          <AntBtn
-            onClick={() => handleDelete(record._id)}
-            type="link"
-            icon={<DeleteFilled />}
-            danger
+          </Button>
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={() => handleDelete(record._id)}
+            okText="Yes"
+            cancelText="No"
           >
-            Delete
-          </AntBtn>
+            <Button type="link" icon={<DeleteFilled />} danger>
+              Delete
+            </Button>
+          </Popconfirm>
         </>
       ),
     },
@@ -155,32 +166,38 @@ function Home() {
       <Flex justify="space-between" wrap gap="small">
         <Space wrap>
           <DatePicker
+            in
             style={{
               paddingBlock: `${mobileView.xs ? "6px" : "8px"}`,
-              width: `${mobileView.xs ? "100px" : "140px"}`,
+              // width: `${mobileView.xs ? "100px" : "140px"}`,
+              // fontSize: "14px",
             }}
             onChange={(date) => setSelectedDate(date)}
           />
-          <StyledButton
+          <Button
+            type="default"
             style={{
-              width: `${mobileView.xs ? "100px" : "150px"}`,
-              paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
+              width: "50px",
+              padding: "18px",
+              // width: `${mobileView.xs ? "100px" : "150px"}`,
+              // paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
             }}
-            type="primary"
             onClick={handleFilter}
-          >
-            Filter Records
-          </StyledButton>
+            icon={<FilterOutlined />}
+          />
         </Space>
         <StyledButton
-          style={{
-            width: `${mobileView.xs ? "100px" : "150px"}`,
-            paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
-          }}
+          style={
+            {
+              // width: `${mobileView.xs ? "100px" : "150px"}`,
+              // paddingBlock: `${mobileView.xs ? "16px" : "18px"}`,
+            }
+          }
           type="primary"
+          // icon={<PlusOutlined />}
           onClick={() => showModal(null, false)}
         >
-          Add Budget
+          <PlusOutlined /> Add Budget
         </StyledButton>
 
         <AddModal
@@ -193,7 +210,14 @@ function Home() {
         />
       </Flex>
       {mobileView.xs ? (
-        <Flex vertical gap="small" style={{ marginTop: "16px" }}>
+        <Flex
+          vertical
+          gap="small"
+          style={{
+            marginTop: "16px",
+            backgroundColor: "#F6F6F6",
+          }}
+        >
           {data?.map((item) => {
             const items = [
               {
@@ -211,38 +235,63 @@ function Home() {
               {
                 key: "2",
                 label: (
-                  <Button
-                    onClick={() => handleDelete(item._id)}
-                    type="link"
-                    icon={<DeleteFilled />}
-                    danger
+                  <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete this task?"
+                    onConfirm={() => handleDelete(item._id)}
+                    okText="Yes"
+                    cancelText="No"
                   >
-                    Delete
-                  </Button>
+                    <Button
+                      // onClick={() => handleDelete(item._id)}
+                      type="link"
+                      icon={<DeleteFilled />}
+                      danger
+                    >
+                      Delete
+                    </Button>
+                  </Popconfirm>
                 ),
               },
             ];
             return (
               <BudgetCard
                 key={item._id}
-                title={item.budgetName}
+                title={
+                  <Typography.Title level={5}>
+                    {item.budgetName}
+                  </Typography.Title>
+                }
                 // extra={<a href="#">more</a>}
-                extra={<Dropdown menu={{ items }}>More...</Dropdown>}
+                extra={
+                  <Dropdown.Button menu={{ items }}>
+                    <Typography.Text strong>Actions</Typography.Text>
+                    {/* <Button icon={<MenuOutlined />} shape="circle"></Button> */}
+                  </Dropdown.Button>
+                }
               >
                 <Flex vertical>
-                  <Space>
-                    <Typography.Text strong>Name :</Typography.Text>
-                    <Typography.Text>{item.budgetName}</Typography.Text>
+                  <Space style={{ justifyContent: "space-between" }}>
+                    <Typography.Title level={5} strong>
+                      Name
+                    </Typography.Title>
+                    <Typography.Title level={5}>
+                      {item.budgetName}
+                    </Typography.Title>
                   </Space>
-                  <Space>
-                    <Typography.Text strong>Price :</Typography.Text>
-                    <Typography.Text>{item.price}</Typography.Text>
+                  <Space style={{ justifyContent: "space-between" }}>
+                    <Typography.Title level={5} strong>
+                      Price
+                    </Typography.Title>
+                    <Typography.Title level={5}>{item.price}</Typography.Title>
                   </Space>
-                  <Space>
-                    <Typography.Text strong>Date :</Typography.Text>
-                    <Typography.Text>
+                  <Space style={{ justifyContent: "space-between" }}>
+                    <Typography.Title level={5} strong>
+                      Date
+                    </Typography.Title>
+                    <Typography.Title level={5}>
                       {format(new Date(item.date), "dd-MM-yyyy")}
-                    </Typography.Text>
+                    </Typography.Title>
                   </Space>
                 </Flex>
               </BudgetCard>

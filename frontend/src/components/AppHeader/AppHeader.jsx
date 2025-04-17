@@ -3,6 +3,7 @@ import budgetLogo from "../../assets/pie.png";
 import { Link } from "react-router-dom";
 import {
   MenuFoldOutlined,
+  MenuOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -62,7 +63,7 @@ function AppHeader() {
 
             // style={{ marginBottom: 16, marginLeft: 16 }}
           >
-            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuOutlined />}
           </Button>
         )}
 
@@ -80,6 +81,7 @@ function AppHeader() {
             size={"large"}
             style={{
               backgroundColor: "#FDC414",
+              color: "#803000",
             }}
             icon={<UserOutlined />}
           />

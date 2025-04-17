@@ -70,7 +70,9 @@ const Dashboard = () => {
         <Layout>
           <Content
             style={{
-              background: "#fff",
+              background: `${mobileView.xs ? "#F6F6F6" : "#fff"}`,
+
+              // background: "#E2E7F1",
               padding: "20px 8px 0px 8px",
               minHeight: 280,
               overflowX: "auto",

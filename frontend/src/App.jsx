@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Flex, Layout, Spin } from "antd";
+import { ConfigProvider, Flex, Layout, Spin } from "antd";
 import { DataProvider } from "./context/DataContext";
 
 const Auth = lazy(() => import("./components/Auth/Auth"));
@@ -14,40 +14,51 @@ const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 function App() {
   return (
     <Router>
-      <DataProvider>
-        <Suspense
-          fallback={
-            <Flex justify="center" align="center" style={{ height: "100vh" }}>
-              <Spin size="large" />
-            </Flex>
-          }
-        >
-          <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
-            {/* Common Header */}
-            <AppHeader />
-            <Routes>
-              <Route path="/" element={<Login />} />
+      <ConfigProvider
+        theme={{
+          token: {
+            // fontSize: "16px",
+            fontFamily: "'serif'",
+            // fontSize: "16px",
+            sizeXS: "14px",
+          },
+        }}
+      >
+        <DataProvider>
+          <Suspense
+            fallback={
+              <Flex justify="center" align="center" style={{ height: "100vh" }}>
+                <Spin size="large" />
+              </Flex>
+            }
+          >
+            <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
+              {/* Common Header */}
+              <AppHeader />
+              <Routes>
+                <Route path="/" element={<Login />} />
 
-              {/* Authentication Pages */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" exact element={<Signup />} />
-              {/* Protected Routes */}
-              <Route
-                // path="/dashboard"
-                exact
-                element={
-                  <Auth>
-                    <Dashboard />
-                  </Auth>
-                }
-              >
-                <Route index element={<Home />} />
-                <Route path="/analytics" element={<Analytics />} />
-              </Route>
-            </Routes>
-          </Layout>
-        </Suspense>
-      </DataProvider>
+                {/* Authentication Pages */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" exact element={<Signup />} />
+                {/* Protected Routes */}
+                <Route
+                  // path="/dashboard"
+                  exact
+                  element={
+                    <Auth>
+                      <Dashboard />
+                    </Auth>
+                  }
+                >
+                  <Route index element={<Home />} />
+                  <Route path="/analytics" element={<Analytics />} />
+                </Route>
+              </Routes>
+            </Layout>
+          </Suspense>
+        </DataProvider>
+      </ConfigProvider>
     </Router>
   );
 }
