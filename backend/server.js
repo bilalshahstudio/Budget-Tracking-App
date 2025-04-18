@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const serverless = require("serverless-http");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -9,6 +10,8 @@ const budgetRoute = require("./routes/budgetRoute");
 dotenv.config();
 app.use(express.json());
 app.use(cors());
+app.use(userRoute);
+app.use(budgetRoute);
 
 mongoose
   .connect(process.env.URI)
@@ -22,6 +25,3 @@ mongoose
   .catch((error) => {
     console.log("error", error);
   });
-
-app.use(userRoute);
-app.use(budgetRoute);
