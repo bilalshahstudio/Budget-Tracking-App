@@ -1,50 +1,70 @@
-import { Dropdown, Layout, Menu, Space, Typography } from "antd";
-import {
-  DollarCircleOutlined,
-  DownOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
-import { Content, Header } from "antd/es/layout/layout";
+import { Layout, Menu } from "antd";
+import { DollarCircleOutlined, PieChartOutlined } from "@ant-design/icons";
+import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-// import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { DataProvider, useData } from "../../context/DataContext";
 
 const Dashboard = () => {
+  const { collapsed, setCollapsed, mobileView } = useData();
+
   const menuItems = [
-    { key: "1", label: "Home", path: "/home", icon: <PieChartOutlined /> },
+    {
+      key: "1",
+      label: "Home",
+      path: "/",
+      icon: <PieChartOutlined />,
+    },
     {
       key: "2",
-      label: "Add Budget",
-      path: "/addBudget",
+      label: "Analytics",
+      path: "/analytics",
       icon: <DollarCircleOutlined />,
     },
   ];
+
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      {/* Header */}
+    <DataProvider>
+      <Layout>
+        {((mobileView.xs && collapsed) || !mobileView.xs) && (
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            breakpoint="md"
+            theme="light"
+            style={{ paddingTop: 20 }}
+          >
+            <Menu
+              defaultSelectedKeys={["1"]}
+              defaultOpenKeys={["sub1"]}
+              mode="inline"
+              theme="light"
+              inlineCollapsed={collapsed}
+            >
+              {menuItems.map((item) => (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  <Link to={item.path}>{item.label}</Link>
+                </Menu.Item>
+              ))}
+            </Menu>
+          </Sider>
+        )}
 
-      {/* Sidebar */}
-      <Sider width={200} theme="dark">
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          style={{ height: "100%", borderRight: 0 }}
-        >
-          {menuItems.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon}>
-              <Link to={item.path}>{item.label}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Sider>
+        <Layout>
+          <Content
+            style={{
+              background: `${mobileView.xs ? "#F6F6F6" : "#fff"}`,
 
-      {/* Main Content */}
-      <Layout style={{ padding: "20px" }}>
-        <Content
-          style={{ background: "#fff", padding: "20px", minHeight: 280 }}
-        ></Content>
+              padding: "20px 8px 0px 8px",
+              minHeight: 280,
+              overflowX: "auto",
+            }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </DataProvider>
   );
 };
 

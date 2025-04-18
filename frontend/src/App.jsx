@@ -1,72 +1,62 @@
-import React from "react";
-<<<<<<< HEAD
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
-import Auth from "./components/layouts/AuthLayout/AuthLayout";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import AddBudget from "./pages/AddBudget/AddBudget";
-import Home from "./pages/Home/Home";
-import MainLayout from "./components/layouts/MainLayout";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ConfigProvider, Flex, Layout, Spin } from "antd";
+import { DataProvider } from "./context/DataContext";
+
+const Auth = lazy(() => import("./components/Auth/Auth"));
+const Login = lazy(() => import("./pages/Auth/Login"));
+const Signup = lazy(() => import("./pages/Auth/Signup"));
+const AppHeader = lazy(() => import("./components/AppHeader/AppHeader"));
+const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const Home = lazy(() => import("./pages/Home/Home"));
+const Analytics = lazy(() => import("./pages/Analytics/Analytics"));
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Root />} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <Route path="/auth" exact element={<Auth />} />
-        <Route path="/login" exact element={<Login />} />
-        <Route path="/signUp" exact element={<Signup />} />
-        <Route path="/mainLayout" exact element={<MainLayout />} />
-        <Route path="/dashboard" exact element={<Dashboard />} />
-        <Route path="/home" exact element={<Home />} />
-        <Route path="/addBudget" exact element={<AddBudget />} />
-=======
-        <Route path="/login" exact element={<Login />} />
-        <Route path="/signUp" exact element={<Signup />} />
-        <Route path="/dashboard" exact element={<Home />} />
-        <Route path="/income" exact element={<Income />} />
-        <Route path="/expense" exact element={<Expense />} />
->>>>>>> d859e4a (ant design and pages setup)
-=======
-        <Route path="/auth" exact element={<Auth />} />
-        <Route path="/login" exact element={<Login />} />
-        <Route path="/signUp" exact element={<Signup />} />
-        <Route path="/dashboard" exact element={<Dashboard />} />
-        <Route path="/home" exact element={<Home />} />
-        <Route path="/addBudget" exact element={<AddBudget />} />
->>>>>>> b8ad078 (ui changes)
-      </Routes>
+      <ConfigProvider
+        theme={{
+          token: {
+            fontFamily: "'serif'",
+          },
+        }}
+      >
+        <DataProvider>
+          <Suspense
+            fallback={
+              <Flex justify="center" align="center" style={{ height: "100vh" }}>
+                <Spin size="large" />
+              </Flex>
+            }
+          >
+            <Layout style={{ minHeight: "100vh", backgroundColor: "#E2E7F1" }}>
+              {/* Common Header */}
+              <AppHeader />
+              <Routes>
+                <Route path="/" element={<Login />} />
+
+                {/* Authentication Pages */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" exact element={<Signup />} />
+                {/* Protected Routes */}
+                <Route
+                  exact
+                  element={
+                    <Auth>
+                      <Dashboard />
+                    </Auth>
+                  }
+                >
+                  <Route index element={<Home />} />
+                  <Route path="/analytics" element={<Analytics />} />
+                </Route>
+              </Routes>
+            </Layout>
+          </Suspense>
+        </DataProvider>
+      </ConfigProvider>
     </Router>
   );
 }
 
 export default App;
-
-const Root = () => {
-  //check if token exists in local storage
-  // const isAuthenticated = !!localStorage.getItem("token");
-  const isAuthenticated = true;
-
-  //Redirected to dashboard if authenticated, otherwise to login
-  return isAuthenticated ? (
-    <Navigate to="mainLayout" />
-  ) : (
-    <Navigate to="auth" />
-  );
-};
-=======
-
-function App() {
-  return <div className="text-3xl color">App</div>;
-}
-
-export default App;
->>>>>>> 11593fb (frontend initial setup)

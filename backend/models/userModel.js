@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
+
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    userID: {
+      type: String,
+      unique: true,
+    },
+    fName: {
+      type: String,
+      required: [true, "Name is required"],
+    },
+    lName: {
       type: String,
       required: [true, "Name is required"],
     },
@@ -14,11 +23,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    date: {
-      type: String,
+    budgetLimit: {
+      type: Number,
+      required: [false, "Budget limit is required"],
     },
-    purchase: { type: String },
-    price: Number,
+    budgets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Budget", // Reference to the Expense model
+      },
+    ],
   },
   { timestamps: true }
 );

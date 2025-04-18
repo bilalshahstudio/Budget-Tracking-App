@@ -1,104 +1,80 @@
 import React from "react";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b8ad078 (ui changes)
-import { Link, Navigate } from "react-router-dom";
-import {
-  Button,
-  Checkbox,
-  Divider,
-  Flex,
-  Form,
-  Input,
-  Layout,
-  Typography,
-  Upload,
-} from "antd";
-import { Content, Header } from "antd/es/layout/layout";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Flex, Form, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import Password from "antd/es/input/Password";
-import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
-import loginImg from "../../assets/3.jpg";
+import API from "../../api";
+import {
+  SignupImageContainer,
+  StyledSignupContainer,
+  StyledSignupLayout,
+} from "./signup.styles";
+import { useData } from "../../context/DataContext";
+import Password from "antd/es/input/Password";
 
 const Signup = () => {
+  const { mobileView } = useData();
+  const navigate = useNavigate();
   const validateMessages = {
     required: "${label} is required!",
     types: {
       email: "${label} is not a valid email!",
-      // number: "${label} is not a valid number!",
     },
-    // number: {
-    //   range: "${label} must be between ${min} and ${max}",
-    // },
   };
+
+  const handleSubmit = async (values) => {
+    const { password, confirmPassword } = values;
+
+    if (password === confirmPassword) {
+      const response = await API.post("/register", {
+        ...values,
+      });
+
+      if (response?.status === 201) {
+        navigate("/login");
+      }
+    } else {
+      console.log("password dosen't match");
+    }
+  };
+
   return (
-    <Layout>
-      <Header style={{ backgroundColor: "#fff", borderBottomColor: "#928b8b" }}>
-        <Typography.Title>Budget Tracking App</Typography.Title>
-      </Header>
-      <Content
-        style={{
-          justifyItems: "center",
-          alignItems: "center",
-          backgroundColor: "#E2E8F0",
-        }}
-      >
-        <Flex
-          align="center"
-          gap={20}
-          style={{
-            backgroundColor: "#fff",
-            marginInline: "15%",
-            padding: 12,
-            marginTop: "14px",
-            borderRadius: "12px",
-          }}
-        >
-          <Flex
-            style={{
-              backgroundColor: "yellow",
-              width: "100%",
-              height: "51vh",
-              borderRadius: "12px",
-              alignItems: "center",
-              paddingInline: "18px",
-            }}
-          >
-            <Typography.Text strong>Start your journey with us</Typography.Text>
-            {/* <img
-              style={{ width: "100", borderRadius: "16px", objectFit: "cover" }}
-              src={loginImg}
-              alt="signin"
-            /> */}
-          </Flex>
+    <StyledSignupLayout>
+      <StyledSignupContainer>
+        {!mobileView.xs && (
+          <SignupImageContainer>
+            <Typography.Title level={3}>
+              Start your Journey With Us
+            </Typography.Title>
+          </SignupImageContainer>
+        )}
+        <Flex>
           <Form
-            // name="basic"
             name="signup"
             layout="vertical"
             labelCol={{
-              span: 8,
+              span: 12,
             }}
             wrapperCol={{
-              span: 25,
+              span: 24,
             }}
-            style={
-              {
-                // flex: 1,
-              }
-            }
-            // onFinish={handleSubmit}
-            // onFinishFailed={onFinishFailed}
+            style={{
+              paddingInline: "14px",
+            }}
+            onFinish={handleSubmit}
             autoComplete="off"
             validateMessages={validateMessages}
           >
             <Form.Item>
-              Already have an account? <Link to="/login">Login</Link>
+              <Typography.Text strong>Signup!</Typography.Text>
+              <br />
+              <Typography.Text>
+                Already have an account? <Link to="/login">Login</Link>
+              </Typography.Text>
+              {/* </Flex> */}
             </Form.Item>
             <Form.Item
               name="fName"
-              // label="First Name"
               rules={[
                 {
                   required: true,
@@ -109,7 +85,6 @@ const Signup = () => {
             </Form.Item>
             <Form.Item
               name="lName"
-              // label="Last Name"
               rules={[
                 {
                   required: true,
@@ -119,8 +94,7 @@ const Signup = () => {
               <InputStyled placeholder="John" />
             </Form.Item>
             <Form.Item
-              name={["user", "email"]}
-              // label="Email"
+              name="email"
               rules={[
                 {
                   type: "email",
@@ -130,9 +104,7 @@ const Signup = () => {
             >
               <InputStyled placeholder="john@example.com" />
             </Form.Item>
-
             <Form.Item
-              // label="Password"
               name="password"
               rules={[
                 {
@@ -141,10 +113,9 @@ const Signup = () => {
                 },
               ]}
             >
-              <PasswordStyled placeholder="password" />
+              <Password placeholder="password" />
             </Form.Item>
             <Form.Item
-              // label="Confirm Password"
               name="confirmPassword"
               rules={[
                 {
@@ -153,7 +124,17 @@ const Signup = () => {
                 },
               ]}
             >
-              <PasswordStyled placeholder="confirm password" />
+              <Password placeholder="confirm password" />
+            </Form.Item>
+            <Form.Item
+              name="budgetLimit"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <InputStyled placeholder="Budget Limit" />
             </Form.Item>
             <Form.Item>
               <ButtonStyled
@@ -162,20 +143,14 @@ const Signup = () => {
                 htmlType="submit"
                 onClick={<Navigate to="dashboard" />}
               >
-                Sign Up
+                Submit
               </ButtonStyled>
             </Form.Item>
           </Form>
         </Flex>
-      </Content>
-    </Layout>
+      </StyledSignupContainer>
+    </StyledSignupLayout>
   );
 };
-=======
-
-function Signup() {
-  return <div>Signup</div>;
-}
->>>>>>> 11593fb (frontend initial setup)
 
 export default Signup;
