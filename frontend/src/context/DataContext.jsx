@@ -12,9 +12,6 @@ export const DataProvider = ({ children }) => {
 
   const mobileView = useBreakpoint();
 
-  console.log(data.fName);
-  console.log("collapsed", collapsed);
-
   const handleLogout = () => {
     localStorage.clear();
     setData({});

@@ -76,9 +76,7 @@ function Analytics() {
   );
 
   return (
-    <Layout
-    // style={{ backgroundColor: "#E2E8F0" }}
-    >
+    <Layout>
       <Content
         className="chart-container"
         style={{

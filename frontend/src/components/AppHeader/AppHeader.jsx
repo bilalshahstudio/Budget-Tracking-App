@@ -1,21 +1,15 @@
-import { Avatar, Button, Dropdown, Flex, Grid, Space, Typography } from "antd";
+import { Avatar, Button, Dropdown, Flex, Typography } from "antd";
 import budgetLogo from "../../assets/pie.png";
 import { Link } from "react-router-dom";
 import {
-  MenuFoldOutlined,
   MenuOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useData } from "../../context/DataContext";
 
-// const { useBreakpoint } = Grid;
-
 function AppHeader() {
   const { data, handleLogout, collapsed, setCollapsed, mobileView } = useData();
-
-  // const mobileView = useBreakpoint();
-  console.log("Data", data.fName);
 
   const toggleCollapsed = () => {
     setCollapsed((prev) => !prev);
@@ -57,12 +51,7 @@ function AppHeader() {
     >
       <Flex align="center" gap="small" wrap>
         {mobileView.xs && data.fName && (
-          <Button
-            type="default"
-            onClick={toggleCollapsed}
-
-            // style={{ marginBottom: 16, marginLeft: 16 }}
-          >
+          <Button type="default" onClick={toggleCollapsed}>
             {collapsed ? <MenuUnfoldOutlined /> : <MenuOutlined />}
           </Button>
         )}

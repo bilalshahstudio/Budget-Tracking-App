@@ -17,10 +17,7 @@ function App() {
       <ConfigProvider
         theme={{
           token: {
-            // fontSize: "16px",
             fontFamily: "'serif'",
-            // fontSize: "16px",
-            sizeXS: "14px",
           },
         }}
       >
@@ -43,7 +40,6 @@ function App() {
                 <Route path="/signup" exact element={<Signup />} />
                 {/* Protected Routes */}
                 <Route
-                  // path="/dashboard"
                   exact
                   element={
                     <Auth>

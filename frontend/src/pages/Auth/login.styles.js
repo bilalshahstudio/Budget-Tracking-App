@@ -20,11 +20,3 @@ export const StyledLoginContainer = styled(Flex)`
     width: 70%;
   }
 `;
-
-// alignItems: "center", backgroundColor: "#E2E7F1"
-
-// marginBlock: "50px",
-// backgroundColor: "#fff",
-// padding: "60px",
-// borderRadius: "8px",
-// boxShadow: "0 4px 10px 4px",

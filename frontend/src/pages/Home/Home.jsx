@@ -37,13 +37,10 @@ function Home() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const { mobileView } = useData();
-  // const mobileView = useBreakpoint();
-  console.log(data);
 
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = (type, message, description) => {
-    console.log(message);
     api[type]({
       message,
       description,
@@ -66,7 +63,6 @@ function Home() {
   }, []);
 
   const showModal = (record, isEdit) => {
-    console.log(record);
     setOpen(true);
     setSelectedItem(record);
     setIsEdit(isEdit);
@@ -90,13 +86,11 @@ function Home() {
       const response = await API.delete(`/user_budget/${budgetId}`);
 
       if (response.status === 200) {
-        console.log("Budget deleted successfully:", response.data);
         openNotification("success", "Deleted", "Budget deleted successfully.");
 
         // Update state to remove the deleted item from the list
         setData((prevData) => prevData.filter((item) => item._id !== budgetId));
       } else {
-        console.log(response.data.error);
         openNotification(
           "error",
           "Error",

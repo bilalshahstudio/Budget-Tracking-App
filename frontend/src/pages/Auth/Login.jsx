@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Flex, Form, Layout, Typography } from "antd";
+import { Flex, Form, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
 import API from "../../api";
 import { useData } from "../../context/DataContext";
 import { StyledLogin, StyledLoginContainer } from "./login.styles";
+import Password from "antd/es/input/Password";
 
 function Login() {
   const navigate = useNavigate();
@@ -42,13 +42,6 @@ function Login() {
           style={{
             maxWidth: 600,
           }}
-          // initialValues={
-          //   {
-          //     // remember: true,
-          //     // email: "admin@gmail.com",
-          //     // password: "admin123",
-          //   }
-          // }
           onFinish={handleSubmit}
           autoComplete="off"
           validateMessages={validateMessages}
@@ -58,8 +51,6 @@ function Login() {
           </Form.Item>
           <Form.Item
             name="email"
-            // label="Email"
-
             rules={[
               {
                 type: "email",
@@ -71,7 +62,6 @@ function Login() {
           </Form.Item>
 
           <Form.Item
-            // label="Password"
             name="password"
             rules={[
               {
@@ -80,7 +70,7 @@ function Login() {
               },
             ]}
           >
-            <PasswordStyled placeholder="Min 8 characters" />
+            <Password placeholder="Min 8 characters" />
           </Form.Item>
 
           <Form.Item>

@@ -1,11 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Flex, Form, Layout, Space, Typography } from "antd";
+import { Flex, Form, Typography } from "antd";
 import { InputStyled } from "../../components/InputStyles/input.styles";
-import { PasswordStyled } from "../../components/PasswordStyles/password.styles";
 import { ButtonStyled } from "../../components/ButtonStyles/button.styles";
-import signupImage from "../../assets/1.jpg";
 import API from "../../api";
 import {
   SignupImageContainer,
@@ -13,11 +10,11 @@ import {
   StyledSignupLayout,
 } from "./signup.styles";
 import { useData } from "../../context/DataContext";
+import Password from "antd/es/input/Password";
 
 const Signup = () => {
   const { mobileView } = useData();
   const navigate = useNavigate();
-  // const { signup } = userData();
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -26,18 +23,14 @@ const Signup = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-
     const { password, confirmPassword } = values;
 
     if (password === confirmPassword) {
-      console.log(values);
       const response = await API.post("/register", {
         ...values,
       });
 
       if (response?.status === 201) {
-        console.log(response?.data);
         navigate("/login");
       }
     } else {
@@ -57,7 +50,6 @@ const Signup = () => {
         )}
         <Flex>
           <Form
-            // name="basic"
             name="signup"
             layout="vertical"
             labelCol={{
@@ -68,16 +60,12 @@ const Signup = () => {
             }}
             style={{
               paddingInline: "14px",
-              // flex: 1,
             }}
             onFinish={handleSubmit}
-            // onFinishFailed={onFinishFailed}
             autoComplete="off"
             validateMessages={validateMessages}
           >
-            {/* <Space direction="vertical" size="small"> */}
             <Form.Item>
-              {/* <Flex vertical> */}
               <Typography.Text strong>Signup!</Typography.Text>
               <br />
               <Typography.Text>
@@ -87,7 +75,6 @@ const Signup = () => {
             </Form.Item>
             <Form.Item
               name="fName"
-              // label="First Name"
               rules={[
                 {
                   required: true,
@@ -98,7 +85,6 @@ const Signup = () => {
             </Form.Item>
             <Form.Item
               name="lName"
-              // label="Last Name"
               rules={[
                 {
                   required: true,
@@ -109,7 +95,6 @@ const Signup = () => {
             </Form.Item>
             <Form.Item
               name="email"
-              // label="Email"
               rules={[
                 {
                   type: "email",
@@ -120,7 +105,6 @@ const Signup = () => {
               <InputStyled placeholder="john@example.com" />
             </Form.Item>
             <Form.Item
-              // label="Password"
               name="password"
               rules={[
                 {
@@ -129,10 +113,9 @@ const Signup = () => {
                 },
               ]}
             >
-              <PasswordStyled placeholder="password" />
+              <Password placeholder="password" />
             </Form.Item>
             <Form.Item
-              // label="Confirm Password"
               name="confirmPassword"
               rules={[
                 {
@@ -141,7 +124,7 @@ const Signup = () => {
                 },
               ]}
             >
-              <PasswordStyled placeholder="confirm password" />
+              <Password placeholder="confirm password" />
             </Form.Item>
             <Form.Item
               name="budgetLimit"
@@ -163,7 +146,6 @@ const Signup = () => {
                 Submit
               </ButtonStyled>
             </Form.Item>
-            {/* </Space> */}
           </Form>
         </Flex>
       </StyledSignupContainer>
