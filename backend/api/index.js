@@ -4,8 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
-const userRoute = require("./routes/userRoute");
-const budgetRoute = require("./routes/budgetRoute");
+const userRoute = require("../api/routes/userRoute");
+const budgetRoute = require("../api/routes/budgetRoute");
 
 dotenv.config();
 
