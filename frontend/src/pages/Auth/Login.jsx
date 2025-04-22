@@ -18,6 +18,7 @@ function Login() {
   };
 
   const handleSubmit = async (values) => {
+    console.log(values);
     const response = await API.post("/login", values);
 
     if (response.status === 200) {
