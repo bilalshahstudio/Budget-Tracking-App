@@ -23,5 +23,9 @@ mongoose
     console.log("error", error);
   });
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
+
 app.use(userRoute);
 app.use(budgetRoute);
