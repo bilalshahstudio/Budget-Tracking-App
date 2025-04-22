@@ -27,10 +27,12 @@ function AppHeader() {
         },
         {
           key: "2",
-          label: (
+          label: data.fName ? (
             <Link to="/login" onClick={handleLogout}>
               Logout
             </Link>
+          ) : (
+            <Link>Login</Link>
           ),
         },
       ]
