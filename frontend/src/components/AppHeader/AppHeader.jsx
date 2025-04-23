@@ -15,26 +15,28 @@ function AppHeader() {
     setCollapsed((prev) => !prev);
   };
 
-  const items = data?.fName
-    ? [
-        {
-          key: "1",
-          label: <span style={{ fontWeight: 500 }}>{data.fName}</span>,
-          disabled: true,
-        },
-        {
-          type: "divider",
-        },
-        {
-          key: "2",
-          label: (
-            <Link to="/login" onClick={handleLogout}>
-              Logout
-            </Link>
-          ),
-        },
-      ]
-    : [];
+  const items = data?.fName ? (
+    [
+      {
+        key: "1",
+        label: <span style={{ fontWeight: 500 }}>{data.fName}</span>,
+        disabled: true,
+      },
+      {
+        type: "divider",
+      },
+      {
+        key: "2",
+        label: (
+          <Link to="/login" onClick={handleLogout}>
+            Logout
+          </Link>
+        ),
+      },
+    ]
+  ) : (
+    <Link to="/login">Login</Link>
+  );
 
   return (
     <Flex
