@@ -7,10 +7,31 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
+  const [user, setUser] = useState(null);
 
   const { useBreakpoint } = Grid;
 
   const mobileView = useBreakpoint();
+
+  const setUserFromToken = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const res = await API.get("/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.status === 200) {
+          setUser(res.data.user); // Assuming res.data.user contains user info
+        }
+      } catch (err) {
+        console.error("Token invalid or expired", err);
+        localStorage.removeItem("token");
+        setUser(null);
+      }
+    }
+  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -25,11 +46,15 @@ export const DataProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    setUserFromToken();
     fetchData();
   }, []);
 
   const contextValue = useMemo(
     () => ({
+      user,
+      setUser,
+      setUserFromToken,
       data,
       fetchData,
       handleLogout,
@@ -38,7 +63,7 @@ export const DataProvider = ({ children }) => {
       setCollapsed,
       mobileView,
     }),
-    [data, loading, handleLogout, setCollapsed, mobileView]
+    [user, data, loading, handleLogout, setCollapsed, mobileView]
   );
 
   return (

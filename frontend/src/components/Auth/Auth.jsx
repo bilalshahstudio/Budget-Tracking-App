@@ -1,9 +1,17 @@
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+// import { useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-const Auth = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+const Auth = () => {
+  const { user } = useData();
+  // const [isAuthenticated, setIsAuthenticated] = useState(true);
+  //   return isAuthenticated ? children : <Navigate to="/login" />;
+  // };
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default Auth;
