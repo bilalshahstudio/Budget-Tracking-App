@@ -1,5 +1,10 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { ConfigProvider, Flex, Layout, Spin } from "antd";
 import { DataProvider } from "./context/DataContext";
 
@@ -33,14 +38,13 @@ function App() {
               {/* Common Header */}
               <AppHeader />
               <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Navigate to="/login" />} />
 
                 {/* Authentication Pages */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" exact element={<Signup />} />
                 {/* Protected Routes */}
                 <Route
-                  exact
                   element={
                     <Auth>
                       <Dashboard />
