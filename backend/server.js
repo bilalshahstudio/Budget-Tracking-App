@@ -33,7 +33,8 @@ mongoose
 //   res.send("Welcome to the API");
 // });
 // ✅ Public routes — NO token required
-app.use(userRoute); // /login and /register
+// app.use(userRoute); // /login and /register
 
 // ✅ Protected routes — token REQUIRED
 app.use("/user_budget", authenticateToken, budgetRoute);
+app.use("/user_budget", authenticateToken, userRoute);
