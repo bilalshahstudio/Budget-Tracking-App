@@ -36,5 +36,9 @@ mongoose
 // app.use(userRoute); // /login and /register
 
 // ✅ Protected routes — token REQUIRED
-app.use("/user_budget", authenticateToken, budgetRoute);
-app.use("/user_budget", authenticateToken, userRoute);
+// app.use("/user_budget", authenticateToken, budgetRoute);
+
+//OldRoute
+
+app.use(userRoute);
+app.use(budgetRoute);
