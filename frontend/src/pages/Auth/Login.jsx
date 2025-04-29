@@ -9,7 +9,7 @@ import Password from "antd/es/input/Password";
 
 function Login() {
   const navigate = useNavigate();
-  const { fetchData, setUserFromToken } = useData();
+  const { fetchData } = useData();
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -23,7 +23,6 @@ function Login() {
 
     if (response.status === 200) {
       localStorage.setItem("token", response?.data?.token);
-      await setUserFromToken();
       await fetchData();
       navigate("/");
     }
