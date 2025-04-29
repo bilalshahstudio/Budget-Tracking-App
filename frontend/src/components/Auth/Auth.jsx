@@ -1,6 +1,5 @@
 // import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useData } from "../../context/DataContext";
 
 const Auth = () => {
   const { user } = useData();
