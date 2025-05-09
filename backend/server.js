@@ -11,7 +11,11 @@ dotenv.config();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://budget-tracking-app-fe.vercel.app",
+    origin: [
+      "https://budget-tracking-app-fe.vercel.app",
+      "http://localhost:5173", // React dev server
+      "http://127.0.0.1:3000",
+    ],
     credentials: true,
   })
 );

@@ -12,13 +12,13 @@ const Dashboard = () => {
     {
       key: "1",
       label: "Home",
-      path: "/",
+      path: "/dashboard",
       icon: <PieChartOutlined />,
     },
     {
       key: "2",
       label: "Analytics",
-      path: "/analytics",
+      path: "analytics",
       icon: <DollarCircleOutlined />,
     },
   ];
