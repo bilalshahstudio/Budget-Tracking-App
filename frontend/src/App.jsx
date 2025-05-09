@@ -33,14 +33,13 @@ function App() {
               {/* Common Header */}
               <AppHeader />
               <Routes>
-                <Route path="/" element={<Login />} />
-
                 {/* Authentication Pages */}
+                <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/signup" exact element={<Signup />} />
+                <Route path="/signup" element={<Signup />} />
                 {/* Protected Routes */}
                 <Route
-                  exact
+                  path="/dashboard"
                   element={
                     <Auth>
                       <Dashboard />
@@ -48,7 +47,7 @@ function App() {
                   }
                 >
                   <Route index element={<Home />} />
-                  <Route path="/analytics" element={<Analytics />} />
+                  <Route path="analytics" element={<Analytics />} />
                 </Route>
               </Routes>
             </Layout>

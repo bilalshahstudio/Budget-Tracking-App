@@ -21,10 +21,15 @@ function Login() {
     console.log(values);
     const response = await API.post("/login", values);
 
-    if (response.status === 200) {
-      localStorage.setItem("token", response?.data?.token);
-      await fetchData();
-      navigate("/");
+    try {
+      if (response.status === 200) {
+        localStorage.setItem("token", response?.data?.token);
+        await fetchData();
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      navigate("signup");
     }
   };
 
